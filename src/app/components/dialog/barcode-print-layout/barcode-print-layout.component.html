@@ -1,0 +1,33 @@
+
+<div >
+  <div *ngFor="let item of ulang" class="flex g-16 printl">
+    <ngx-barcode
+        [bc-value]="data.barcode"
+        [bc-format]="'CODE39'"
+        [bc-width]="1.6"
+        [bc-height]="30"
+        [bc-text-align]="'left'"
+        [bc-element-type]="'img'"
+        [bc-margin]="0"
+        [bc-margin-right]="5"
+    ></ngx-barcode>
+  </div>
+</div>
+<div class="flex-around" style="margin-top: 20px;">
+  <button [mat-dialog-close]  mat-raised-button class="btn-primary">
+    Print
+  </button>
+</div>
+<!-- <div id="print-section">
+  <div *ngFor="let item of ulang" class="flex g-16 printl">
+    <ngx-barcode [bc-width]="1" [bc-margin-top]="10" [bc-margin-left]="5" [bc-margin-right]="10" [bc-value]="data.barcode" [bc-display-value]="true" [bc-height]="20" ></ngx-barcode>
+    <ngx-barcode [bc-width]="1" [bc-margin-top]="10" [bc-margin-left]="10" [bc-margin-right]="10" [bc-value]="data.barcode" [bc-display-value]="true" [bc-height]="20"></ngx-barcode>
+    <ngx-barcode [bc-width]="1" [bc-margin-top]="10" [bc-margin-left]="10" [bc-margin-right]="5" [bc-value]="data.barcode" [bc-display-value]="true" [bc-height]="20"></ngx-barcode>
+
+  </div>
+</div>
+<div class="flex-around" style="margin-top: 20px;">
+  <button [mat-dialog-close] styleSheetFile="./../../../assets/css/style.css" mat-raised-button class="btn-primary" printTitle="Print Title" printSectionId="print-section" ngxPrint>
+    Print
+  </button>
+</div> -->

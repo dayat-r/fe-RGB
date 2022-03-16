@@ -1,0 +1,145 @@
+<div>
+	<div class="card-form flex-between">
+		<h6>New Order</h6>
+		<div class="flex" style="gap: 10px;">
+			<button (click)="onDeleteOrder()" mat-button class="btn-secondary">
+				<mat-icon svgIcon="icon-delete" style="width: 18px;"></mat-icon>
+				 Order
+				</button>
+			<button (click)="onOpenDialogItem()" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+        Product</button>
+		</div>
+	</div>
+	<div class="body-order">
+		<div class="body-left">
+      <div class="flex full">
+
+        <div class="card-form full">
+          <label class="caption">Customer</label>
+          <div style="height: 37px;" (click)="onOpenDialogCustomer()" class="form-input" type="text">
+            {{data.customerName}}</div>
+        </div>
+        <div class="card-form full">
+          <label class="caption">Barcode</label>
+          <input (keyup.enter)="onBarcode()" [(ngModel)]="scan" class="form-input" type="text">
+        </div>
+      </div>
+			<div class="card-form">
+				<label class="caption">Note</label>
+				<textarea [(ngModel)]="data.note"  class="form-input" cols="4" rows="4"></textarea>
+			</div>
+			<div class="card-form" style="gap: 20px;">
+				<mat-checkbox (change)="calculatePrice()" [(ngModel)]="data.ppnCheck">
+					<p class="body-2">PPN</p>
+				</mat-checkbox>
+        <div *ngIf="data.ppnCheck" class="mt-8 flex-between" style="gap: 20px;">
+          <div class="flex full align-center" style="gap: 8px;">
+            <input (input)="calculatePrice()" placeholder="0" [(ngModel)]="data.ppn" class="form-input" type="number" style="margin-top: 0;height: 28px;">
+            <p class="body-2">%</p>
+          </div>
+          <mat-radio-group (change)="calculatePrice()" [(ngModel)]="data.ppnStatus"  class="body-2 full">
+            <mat-radio-button value="BEFORE">Sebelum Diskon</mat-radio-button>
+            <mat-radio-button class="mt-4" value="AFTER">Sesudah Diskon</mat-radio-button>
+          </mat-radio-group>
+        </div>
+			</div>
+			<div class="card-form">
+				<label class="caption">Pembayaran</label>
+				<div class="mt-8">
+
+					<mat-radio-group [(ngModel)]="data.paymentMethod" style="display: flex; gap: 10px;" class="body-2">
+						<mat-radio-button value="CASH">Cash</mat-radio-button>
+						<mat-radio-button value="CREDIT">Credit</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+			<div *ngIf="data.paymentMethod === 'CREDIT'" class="flex">
+				<div class="card-form full">
+					<label class="caption">Jumlah Pembayaran Awal</label>
+					<input (change)="onStorage()" (input)="calculateCredit()" placeholder="0" [(ngModel)]="data.dp" class="form-input" type="text">
+				</div>
+				<div class="card-form full">
+					<label class="caption">Tanggal Pembayaran</label>
+					<div class="flex align-center">
+						<input (click)="picker.open()" [(ngModel)]="data.limitDate" class="form-input" type="text"
+							[matDatepicker]="picker">
+						<mat-datepicker-toggle (min)="2021-10-05" matSuffix [for]="picker"></mat-datepicker-toggle>
+					</div>
+					<mat-datepicker #picker></mat-datepicker>
+				</div>
+			</div>
+
+		</div>
+		<div class="body-right">
+			<div class="list-order">
+				<p class="body-1 hide-to-mobile">List Order Item</p>
+				<hr class="mb-10 hide-to-mobile">
+				<div class="list-product ">
+					<div class="card-list-item flex " *ngFor="let item of dataItem.slice().reverse(); let i=index">
+						<div class="card-img-item">
+							<img class="img-item" src={{getImage(item.path)}} alt=""
+								onerror="this.src='/assets/image/no-image.svg'">
+						</div>
+						<div class=" body-item full">
+							<div class="flex-between">
+								<div>
+									<p class="body-1">{{item.description}} {{item.merkMobil}} {{item.tipeMobil}}</p>
+									<p class="body-2 font-primary">{{item.price | currency:"Rp.":'symbol':'3.0'}}</p>
+								</div>
+								<div class="flex" style="gap: 8px;">
+
+									<mat-icon (click)="onRemoveItem(i)" svgIcon="icon-delete" class="pointer" style="width: 18px;"></mat-icon>
+									<mat-icon (click)="onEditOrder(item)" svgIcon="icon-edit" class="pointer" style="width: 18px;"></mat-icon>
+								</div>
+							</div>
+							<hr>
+							<div >
+								<div class="flex-between">
+
+									<div class="flex">
+										<p class="caption">{{item.location}}</p>
+									</div>
+									<div class="flex-between" style="width: 40px;">
+										<p class="caption">Qty</p>
+										<p class="caption"> : {{item.qty}}</p>
+									</div>
+								</div>
+								<div class="flex-between">
+									<p class="caption">Diskon</p>
+									<p class="caption" *ngIf="item.typeDiscount === 'Amount' && item.diskon !== '0'">{{item.diskon | currency:"Rp.":'symbol':'3.0'}}</p>
+									<p class="caption" *ngIf="item.typeDiscount === 'Percentage'">{{item.diskon}} %</p>
+									<p class="caption" *ngIf="item.diskon === '0'"> 0</p>
+								</div>
+								<div class="flex-between">
+									<p class="caption">Sub Total</p>
+									<p class="caption" *ngIf="item.typeDiscount === 'Amount'">{{(item.price * item.qty) - item.diskon | currency:"Rp." :'symbol':'3.0'}}</p>
+									<p class="caption" *ngIf="item.typeDiscount === 'Percentage'">{{(item.price * item.qty) - ((item.price * item.qty)*item.diskon/100) | currency:"Rp.":'symbol':'3.0'}}</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div *ngIf="!dataItem">
+						<p class="caption">No Product</p>
+					</div>
+				</div>
+				<hr>
+				<div class="flex-between">
+					<p class="body-2">Total</p>
+					<p class="body-2">{{totalPrice | currency:"Rp.":'symbol':'3.0'}}</p>
+				</div>
+				<div *ngIf="data.paymentMethod === 'CREDIT'" class="flex-between mt-8">
+					<p class="body-1">Sisa Kredit</p>
+					<p class="body-1" *ngIf="data.credit">{{(data.credit.toLocaleString(['ban','id'])) || 0}}</p>
+					<p class="body-1" *ngIf="!data.credit">{{totalCredit | currency:"Rp.":'symbol':'3.0'}}</p>
+				</div>
+			</div>
+      <div class=" card-form flex end full" style="padding-right: 0; gap: 10px;">
+        <button mat-button class="btn-secondary btn-order">Cancel</button>
+        <button (click)="onOrder()" mat-button class="btn-primary btn-order">Order</button>
+      </div>
+		</div>
+	</div>
+
+</div>

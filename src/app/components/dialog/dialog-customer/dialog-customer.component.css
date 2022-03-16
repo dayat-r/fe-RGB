@@ -1,0 +1,23 @@
+
+.list-customer{
+  height: 300px;
+  overflow: auto;
+}
+.list:hover{
+  background-color: #e0e0e0;
+}
+ ::ng-deep .mat-dialog-container{
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+
+@media only screen and (min-width: 991px) {
+  .dialog-customer{
+    width: 300px;
+  }
+
+}
+
+
+

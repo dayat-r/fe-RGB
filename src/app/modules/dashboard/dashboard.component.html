@@ -1,0 +1,101 @@
+<div class="body-report">
+  <div class="card-form flex-between">
+    <h6>Dashboard</h6>
+    <p class="body-1"><span class="hide-to-mobile">Transaksi Hari Ini</span>  {{month | date:'dd MMM YYYY'}}</p>
+  </div>
+
+  <div class="layout-report">
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Penjualan</p>
+        <h6 class="mt-4">{{sumSales }} X</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Penjualan</p>
+        <h6  class="mt-4">{{sales  | currency:'Rp.':'symbol':'3.0' }}</h6>
+
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Pembelian</p>
+        <h6 class="mt-4">{{sumPurchase }} X</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pembelian</p>
+        <h6 class="mt-4">{{purchase | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pendapatan</p>
+        <h6 class="mt-4">{{sales-purchase | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="between-desktop card-form ">
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Penjualan</p>
+        <h6 class="mt-4">{{sumSales }}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Penjualan</p>
+        <h6  class="mt-4">{{sales  | currency:'Rp.':'symbol':'3.0' }}</h6>
+
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Pembelian</p>
+        <h6 class="mt-4">{{sumPurchase }}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pembelian</p>
+        <h6 class="mt-4">{{purchase | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pendapatan</p>
+        <h6 class="mt-4">{{sales-purchase | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+  </div> -->
+  <div id="chart" class="mt-16">
+    <apx-chart
+      [series]="options.series"
+      [chart]="options.chart"
+      [xaxis]="options.xaxis"
+      [title]="options.title"
+    ></apx-chart>
+  </div>
+  <!-- <div style="width: 600px;">
+    <apx-chart
+      [series]="options1.series"
+      [chart]="options1.chart"
+      [labels]="options1.labels"
+      [responsive]="options1.responsive"
+    ></apx-chart> -->
+  <!-- </div> -->
+
+  <div id="chart1">
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [plotOptions]="chartOptions.plotOptions"
+    [xaxis]="chartOptions.xaxis"
+    [fill]="chartOptions.fill"
+    [legend]="chartOptions.legend"
+    [colors]="chartOptions.color"
+    ></apx-chart>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div style="padding-bottom: 24px;">
+  <div class="mt-8 flex g-8 p-mobile">
+    <mat-icon class="pointer" (click)="back()" svgIcon="icon-arrow-left" ></mat-icon>
+    <h6>Income Statement</h6>
+  </div>
+  <div class=" between-desktop g-8 card-form" >
+    <div class="full flex g-8">
+      <div  class="full">
+        <label class="caption">Filter berdasarkan</label>
+        <mat-select (selectionChange)="cekFilter()" [(ngModel)]="filter" class="form-input" style="height: 37px;">
+          <mat-option value="this-month">Bulan ini </mat-option>
+          <mat-option value="this-year">Tahun ini</mat-option>
+          <mat-option value="range-date">Rentang Tanggal</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="full flex g-8 mt-mobile">
+      <div class="full">
+        <label class="caption">Rentang tanggal</label>
+        <div class="flex g-8 mt-8">
+          <input (dateChange)="cekFilter()" [(ngModel)]="start"  placeholder="starting date" [disabled]="filter!= 'range-date'" (click)="picker.open()"  class="form-input" type="text" [matDatepicker]="picker" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker></mat-datepicker>
+          <input (dateChange)="cekFilter()" [(ngModel)]="end"  placeholder="ending date" [disabled]="filter!= 'range-date'" (click)="picker1.open()"  class="form-input" type="text" [matDatepicker]="picker1" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker1></mat-datepicker>
+        </div>
+      </div>
+      <button [disabled]="disable" (click)="getIsReport()" mat-button class="btn-primary" style="height: 37px;margin-top: 24px;">View</button>
+
+    </div>
+  </div>
+  <div class="layout-is"  *ngIf="pendapatan && pengeluaran && hargaPokok && dataPengeluaran">
+    <div class="card-form" style="text-align: center;">
+      <h6 class="body-1 mt-8">CV. Sion Glass Kaca Mobil</h6>
+      <h5>Laporan Laba & Rugi</h5>
+      <p class="caption mt-4">Dari {{startDate | date : 'dd MMM YYYY'}} sampai {{endDate | date : 'dd MMM YYYY'}}</p>
+    </div>
+    <hr>
+    <div>
+      <div class="title-body">
+        <p  class="body-1">Pendapatan</p>
+      </div>
+      <hr>
+      <div class="flex-between title-body">
+          <p class="body-2" style="margin-left: 20px;">Pendapatan Penjualan</p>
+          <p class="body-2">{{pendapatan.toLocaleString(['ban'])}}</p>
+      </div>
+      <hr>
+      <div class="flex-between title-body">
+          <p  class="body-1" >Total Pendapatan</p>
+          <p  class="body-1" >{{pendapatan.toLocaleString(['ban'])}}</p>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <div class="title-body">
+        <p  class="body-1">Harga Pokok Penjualan</p>
+      </div>
+      <hr>
+      <div class="flex-between title-body">
+        <p class="body-2" style="margin-left: 20px;">Harga Pokok Penjualan</p>
+        <p class="body-2">{{hargaPokok.toLocaleString(['ban'])}}</p>
+      </div>
+      <hr>
+      <div class="flex-between title-body">
+          <p  class="body-1" >Total Harga Pokok Penjualan</p>
+          <p  class="body-1" >({{hargaPokok.toLocaleString(['ban'])}})</p>
+      </div>
+    </div>
+    <div class="title-point flex-between">
+      <p class="body-1">TOTAL LABA KOTOR</p>
+      <p class="body-1">{{(pendapatan-hargaPokok).toLocaleString(['ban'])}}</p>
+    </div>
+    <div>
+      <div class="title-body">
+        <p  class="body-1">Beban Operasional</p>
+      </div>
+      <hr>
+      <div *ngFor="let item of dataPengeluaran">
+        <div class="flex-between title-body" >
+          <p class="body-2" style="margin-left: 20px;">{{item.name}}</p>
+          <p class="body-2">{{item.amount.toLocaleString(['ban'])}}</p>
+        </div>
+        <hr>
+      </div>
+      <div class="flex-between title-body">
+        <p  class="body-1" >Total Beban Operasional</p>
+        <p  class="body-1" >({{pengeluaran.toLocaleString(['ban'])}})</p>
+
+      </div>
+    </div>
+    <div class="flex-between title-point">
+      <p class="body-1">LABA BERSIH OPERASIONAL</p>
+      <p class="body-1">{{(pendapatan - hargaPokok - pengeluaran).toLocaleString(['ban'])}}</p>
+    </div>
+    <div>
+      <div class="title-body">
+        <p  class="body-1">Pendapatan & Beban Lainnya</p>
+      </div>
+      <hr>
+      <div class="flex-between title-body">
+          <p  class="body-1" >Total Pendapatan & Beban Lainnya</p>
+          <p  class="body-1" >(0)</p>
+      </div>
+    </div>
+    <div class="flex-between title-point">
+      <p class="body-1">Laba/(RUGI) Bersih</p>
+      <p class="body-1">{{(pendapatan - hargaPokok - pengeluaran).toLocaleString(['ban'])}}</p>
+    </div>
+    <hr>
+  </div>
+</div>

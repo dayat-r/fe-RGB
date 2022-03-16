@@ -1,0 +1,22 @@
+<div class="dialog-pay">
+  <div class="card-form" >
+    <h6 >Pay Order</h6>
+  </div>
+  <div class="card-form">
+      <label class="caption">Nominal Bayar</label>
+      <input (input)="calculate()" placeholder="0" [(ngModel)]="nominal" class="form-input" type="number">
+      <p *ngIf="errorNominal" class="caption font-primary">Masukan nominal pembayaran</p>
+  </div>
+  <div class="card-form" *ngIf="router.url==='/sales/new-order'">
+    <hr>
+    <div class="flex-between">
+
+      <p class="body-1">Kembalian</p>
+      <p class="body-1">{{kembali | currency:'Rp.':'symbol':'3.0'}}</p>
+    </div>
+  </div>
+
+  <div class="card-form">
+    <button   (click)="onPay()" mat-button class="btn-primary full">Bayar</button>
+  </div>
+</div>

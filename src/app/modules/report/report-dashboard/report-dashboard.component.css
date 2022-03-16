@@ -1,0 +1,46 @@
+.img-report{
+  width: 100%;
+  max-width: 100px;
+}
+.img-report:hover{
+  max-width: 110px;
+}
+.card-report{
+  border-radius: 8px;
+  padding: 16px 8px 8px 8px;
+  width: 100%;
+  text-align: center;
+  background-color: #e0e0e0;
+}
+.card-report:hover{
+  background-color: #b3b3b3;
+}
+
+
+.card-asset{
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+}
+
+@media only screen and (max-width: 990px) {
+  .layout-report{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .body-report{
+    padding: 0 16px 24px 16px;
+  }
+}
+@media only screen and (min-width: 991px) {
+  .layout-report{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+}
+

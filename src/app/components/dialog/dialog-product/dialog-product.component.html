@@ -1,0 +1,36 @@
+<div class="dialog-product">
+  <div class="card-form" >
+    <h6>List Product</h6>
+  </div>
+  <div class="card-form" style="padding-top: 0;">
+    <input style="width: 100%;" (keyup.enter)="getItem()" [(ngModel)]="cari" class="input-search" placeholder="Search product" type="text">
+  </div>
+  <div class="list-product">
+    <cdk-virtual-scroll-viewport itemSize="100" style="width: 100%; height: 100%;">
+      <div class="card-list-item" *cdkVirtualFor="let item of dataSource" >
+        <div (click)="onSelectItem(item)" class="flex pointer">
+          <div class="card-img-item flex align-center">
+            <img class="img-item" src={{getImage(item.path)}} alt="" onerror="this.src='/assets/image/no-image.svg'">
+          </div>
+          <div class=" body-item full" style="padding: 4px 8px;" >
+            <div >
+              <div style="height: 48px;">
+                <p class="body-1 title-2-line">{{item.description}} {{item.merkMobil}} {{item.tipeMobil}}</p>
+              </div>
+              <div class="flex-between">
+                <p class="body-2 font-primary">{{math(item.price) |currency:"Rp.":"symbol":"3.0"}}</p>
+                <p class="body-2">QTY : {{item.total}}</p>
+              </div>
+              <div class="between-desktop">
+                <p class="body-2 ">{{item.merk}}</p>
+                <p class="body-2 hide-to-mobile" > Supplier : {{item.supplierName}}</p>
+                <p class="body-2 hide-to-desktop title-1-line"> {{item.supplierName}}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </cdk-virtual-scroll-viewport>
+  </div>
+</div>

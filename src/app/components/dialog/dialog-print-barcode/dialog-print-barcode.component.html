@@ -1,0 +1,26 @@
+<div class="dialog-pay">
+  <div class="card-form" >
+    <h6 >Print Barcode</h6>
+  </div>
+  <div class="flex-around" >
+    <ngx-barcode
+        [bc-value]="barcode"
+        [bc-display-value]="true"
+        [bc-width]="1"
+        [bc-format]="'CODE128'"
+        [bc-height]="30"
+        [bc-element-type]="'img'"
+        [bc-margin]="0"
+        [bc-margin-right]="5"
+    ></ngx-barcode>
+  </div>
+  <div class="card-form">
+      <label class="caption">Jumlah barcode kelipatan 3</label>
+      <input  placeholder="0" [(ngModel)]="count" class="form-input" type="number">
+      <!-- <p *ngIf="errorNominal" class="caption font-primary">Masukan nominal pembayaran</p> -->
+  </div>
+
+  <div class="card-form">
+    <button   (click)="onPrint()" mat-button class="btn-primary full">Selanjutnya</button>
+  </div>
+</div>

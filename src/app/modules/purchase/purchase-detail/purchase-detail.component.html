@@ -1,0 +1,90 @@
+<div style="padding: 16px 0 ; height: calc(100vh - 61px);">
+  <div class="layout-list">
+    <div class="flex-between">
+      <div class="flex g-8 full">
+        <mat-icon (click)="back()" svgIcon="icon-arrow-left"></mat-icon>
+        <h6>Purchase Detail</h6>
+      </div>
+    </div>
+    <div class="mt-8 body-detail">
+      <div class="flex-between">
+        <div class="full">
+          <div class="mt-16">
+            <p class="caption">Tanggal Transaksi</p>
+            <p class="body-1 mt-4">{{dataPurchase?.date | date:'dd MMM YYYY'}}</p>
+          </div>
+
+          <div class="mt-16">
+            <p class="caption">Lokasi Penambahan Stok</p>
+            <p class="body-1 mt-4">{{dataPurchase?.location}}</p>
+          </div>
+          <div class="mt-16">
+            <p class="caption">Kuantitas</p>
+            <p class="body-1 mt-4">{{dataPurchase?.qty}}</p>
+          </div>
+          <div class="mt-16">
+            <p class="caption">Tipe Pembayaran</p>
+            <p class="body-1 mt-4">{{dataPurchase?.paymentMethod}}</p>
+          </div>
+        </div>
+        <div class="full">
+          <div class="mt-16">
+            <p class="caption">Nama Produk</p>
+            <p class="body-1 mt-4">{{dataPurchase?.description}} {{dataPurchase?.merkMobil}} {{dataPurchase?.tipeMobil}}</p>
+          </div>
+          <div class="mt-16">
+            <p class="caption">Merk</p>
+            <p class="body-1 mt-4">{{dataPurchase?.merk}}</p>
+          </div>
+          <div class="mt-16">
+            <p class="caption">Supplier</p>
+            <p class="body-1 mt-4">{{dataPurchase?.nameSupplier}}</p>
+          </div>
+
+        </div>
+      </div>
+      <hr>
+
+      <div class="flex-between mt-16">
+        <p class="body-1">Harga Beli</p>
+        <p class="body-1">{{dataPurchase?.priceUnit.toLocaleString(['id'])}}</p>
+      </div>
+      <div class="flex-between mt-16">
+        <p class="body-1">Diskon</p>
+        <p class="body-1" *ngIf="dataPurchase?.typeDiskon==='Percentage'">{{((dataPurchase?.diskon/100)*dataPurchase?.priceUnit).toLocaleString(['id'])}}</p>
+        <p class="body-1" *ngIf="dataPurchase?.typeDiskon==='Amount'">{{(dataPurchase?.diskon).toLocaleString(['id'])}}</p>
+      </div>
+      <div class="flex-between mt-16">
+        <p class="body-1">PPN</p>
+        <p class="body-1" *ngIf="!dataPurchase?.ppnCheck ">0</p>
+        <p class="body-1" *ngIf="dataPurchase?.ppnCheck && dataPurchase?.ppnStatus==='BEFORE' ">{{((dataPurchase?.ppn/100)*dataPurchase?.priceUnit).toLocaleString(['id'])}}</p>
+        <p class="body-1" *ngIf="dataPurchase?.ppnCheck && dataPurchase?.ppnStatus==='AFTER' && dataPurchase?.typeDiskon==='Percentage'">{{((dataPurchase?.ppn/100)*(dataPurchase?.priceUnit - ((dataPurchase?.diskon/100)*dataPurchase?.priceUnit))).toLocaleString(['id'])}}</p>
+        <p class="body-1" *ngIf="dataPurchase?.ppnCheck &&dataPurchase?.ppnStatus==='AFTER' && dataPurchase?.typeDiskon==='Amount'">{{((dataPurchase?.ppn/100)*(dataPurchase?.priceUnit - dataPurchase?.diskon)).toLocaleString(['id'])}}</p>
+      </div>
+      <div *ngIf="dataPurchase?.paymentMethod === 'CREDIT'">
+        <div class="mt-16">
+          <p class="caption">Deposit</p>
+          <p class="body-1 mt-4">{{dataPurchase?.dp}}</p>
+        </div>
+        <div class="mt-16">
+          <p class="caption">Tanggal jatuh Tempo</p>
+          <p class="body-1 mt-4">{{dataPurchase?.limitDate}}</p>
+        </div>
+      </div>
+
+
+      <hr>
+      <div class="flex-between mt-16">
+        <p class="body-1">Total</p>
+        <p class="body-1">{{dataPurchase?.total.toLocaleString(['id'])}}</p>
+      </div>
+      <div class="flex end mt-16">
+        <button (click)="onDelete()" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-delete" class="icon"></mat-icon>
+          Purchase
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

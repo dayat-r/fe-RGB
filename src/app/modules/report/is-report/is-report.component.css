@@ -1,0 +1,47 @@
+.body-1{
+  font-weight: 500;
+}
+
+
+
+.title-point{
+  background-color: #e0e0e0;
+  padding: 5px 10px ;
+}
+.title-body{
+  padding: 4px 8px;
+}
+
+
+@media only screen and (max-width: 990px) {
+  h5{
+    margin: 0;
+    font-size: 25px !important;
+  }
+  .layout-is{
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px#666666;
+    padding: 8px;
+    margin: 10px 16px 0 16px;
+  }
+  .p-mobile{
+    padding: 0 16px;
+  }
+  .mt-mobile{
+    padding-top: 8px;
+  }
+
+}
+@media only screen and (min-width: 991px) {
+  h5{
+    margin: 0;
+    font-size: 35px !important;
+  }
+  .layout-is{
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px#666666;
+    padding: 8px 24px;
+    margin: 20px 24px 0 24px;
+  }
+
+}

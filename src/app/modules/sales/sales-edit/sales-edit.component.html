@@ -1,0 +1,172 @@
+<div>
+  <div class="card-form flex-between">
+    <div class="flex g-8">
+      <mat-icon svgIcon="icon-arrow-left" class="pointer" (click)="back()"></mat-icon>
+      <h6>Edit Order</h6>
+    </div>
+    <div class="flex" style="gap: 10px;">
+      <button (click)="onDeleteOrder()" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-delete" style="width: 18px;"></mat-icon>
+        Order
+      </button>
+      <button (click)="onOpenDialogItem()" mat-button class="btn-secondary">Add Product</button>
+    </div>
+  </div>
+  <div class="flex">
+    <div class="body-left card-form">
+      <div>
+        <label class="caption">Nomor Transaksi</label>
+        <p class="body-1 mt-4"> {{idSales}}</p>
+      </div>
+      <div class="mt-16">
+        <label class="caption">Waktu Transaksi</label>
+        <p class="body-1 mt-4"> {{data.date | date:'dd MMM YYYY HH:mm:ss'}}</p>
+      </div>
+      <div class="mt-16">
+        <label class="caption">Sales</label>
+        <p style="height: 37px;" class="form-input mt-4"> {{data.userName}}</p>
+      </div>
+      <div class="mt-16">
+        <label class="caption">Customer</label>
+        <p style="height: 37px;" (click)="onOpenDialogCustomer()" class="form-input mt-4"> {{data.customerName}}</p>
+      </div>
+      <div class="mt-16">
+        <mat-checkbox (change)="calculatePrice()" [(ngModel)]="data.ppnCheck">
+          <p class="body-2">PPN</p>
+        </mat-checkbox>
+        <div *ngIf="data.ppnCheck" class="mt-8 flex-between" style="gap: 20px;">
+          <div class="flex full align-center" style="gap: 8px;">
+            <input (input)="calculatePrice()" placeholder="0" [(ngModel)]="data.ppn" class="form-input" type="number"
+              style="margin-top: 0;height: 28px;">
+            <p class="body-2">%</p>
+          </div>
+          <mat-radio-group (change)="calculatePrice()" [(ngModel)]="data.ppnStatus" class="body-2 full">
+            <mat-radio-button value="BEFORE">Sebelum Diskon</mat-radio-button>
+            <mat-radio-button class="mt-4" value="AFTER">Sesudah Diskon</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="mt-16">
+        <label class="caption">Status Pembayaran</label>
+        <div class="mt-4">
+          <mat-radio-group [(ngModel)]="data.paymentMethod" style="display: flex; gap: 10px;" class="body-2">
+            <mat-radio-button value="CASH">Cash</mat-radio-button>
+            <mat-radio-button value="CREDIT">Credit</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="mt-16">
+        <label class="caption">Note</label>
+        <textarea [(ngModel)]="data.note" class="form-input" cols="3" rows="3"></textarea>
+      </div>
+      <div class="mt-16" *ngIf="data.paymentMethod === 'CREDIT'">
+        <label class="caption">Jumlah Pembayaran Awal</label>
+        <input (input)="calculateCredit()" placeholder="0" [(ngModel)]="data.dp" class="form-input mt-4" type="text">
+
+        <div class="mt-16">
+          <label class="caption">Tanggal Pembayaran</label>
+          <div class="flex align-center">
+            <input (click)="picker.open()" [(ngModel)]="data.limitDate" class="form-input mt-4" type="text"
+              [matDatepicker]="picker">
+            <mat-datepicker-toggle (min)="2021-10-05" matSuffix [for]="picker"></mat-datepicker-toggle>
+          </div>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+      <div class="mt-16">
+        <button (click)="updateOrder()" mat-button class="btn-primary btn-order">Edit Order</button>
+      </div>
+    </div>
+    <div class="body-right">
+      <div class="list-order">
+        <p class="body-1">List Order Item</p>
+        <hr class="mb-10">
+        <div class="list-product ">
+          <div class="card-list-item flex " *ngFor="let item of dataItem; let i=index">
+            <div class="card-img-item">
+              <img class="img-item" src={{getImage(item.path)}} alt="" onerror="this.src='/assets/image/no-image.svg'">
+            </div>
+            <div class=" body-item full">
+              <div class="flex-between">
+                <div>
+                  <p class="body-1">{{item.description}} {{item.merkMobil}} {{item.tipeMobil}}</p>
+                  <p class="body-2 font-primary">{{item.price | currency:"Rp.":'symbol':'3.0'}}</p>
+                </div>
+                <div class="flex" style="gap: 8px;">
+
+                  <mat-icon (click)="onRemoveItem(i)" svgIcon="icon-delete" class="pointer" style="width: 18px;">
+                  </mat-icon>
+                  <mat-icon (click)="onEditOrder(item)" svgIcon="icon-edit" class="pointer" style="width: 18px;">
+                  </mat-icon>
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div class="flex-between">
+                  <div class="flex">
+                    <p class="caption">{{item.location}}</p>
+                  </div>
+                  <div class="flex-between" style="width: 50px;">
+                    <p class="caption">Qty</p>
+                    <p class="caption"> : {{item.qty}}</p>
+                  </div>
+                </div>
+                <div class="flex-between">
+                  <p class="caption">Diskon</p>
+                  <p class="caption" *ngIf="item.typeDiscount === 'Amount' && item.diskon !== 0">{{item.diskon |
+                    currency:"Rp.":'symbol':'3.0'}}</p>
+                  <p class="caption" *ngIf="item.typeDiscount === 'Percentage' && item.diskon !== 0">{{item.diskon}} %
+                  </p>
+                  <p class="caption" *ngIf="item.diskon === 0"> 0</p>
+                </div>
+                <div class="flex-between">
+                  <p class="caption">Sub Total</p>
+                  <p class="caption" *ngIf="item.typeDiscount === 'Amount'">{{(item.price * item.qty) - item.diskon |
+                    currency:"Rp." :'symbol':'3.0'}}</p>
+                  <p class="caption" *ngIf="item.typeDiscount === 'Percentage'">{{((item.price * item.qty) - ((item.price
+                    * item.qty)*item.diskon/100)).toLocaleString(['id'])}}</p>
+                  <p class="caption" *ngIf="!item.typeDiscount">{{item.price * item.qty |
+                    currency:"Rp.":'symbol':'3.0'}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="flex-between">
+          <p class="body-2">Dpp</p>
+          <p class="body-2">{{dpp.toLocaleString(['id'])}}</p>
+        </div>
+        <div class="flex-between mt-8">
+          <p class="body-2 " *ngIf="data.ppnCheck && data.ppnStatus === 'BEFORE'">PPN Sebelum Diskon</p>
+          <p class="body-2 " *ngIf="data.ppnCheck && data.ppnStatus === 'AFTER'">PPN Setelah Diskon</p>
+          <p class="body-2 " *ngIf="data.ppnCheck && data.ppnStatus === 'AFTER'">{{(totalPrice*(data.ppn/110)).toLocaleString(['id'])}}</p>
+          <p class="body-2 " *ngIf="data.ppnCheck && data.ppnStatus === 'BEFORE'">{{((totalPrice+ totalDiskon)*(data.ppn/110)).toLocaleString(['id'])}}</p>
+        </div>
+        <div class="flex-between mt-8">
+          <p class="body-2">Total</p>
+          <p class="body-2">{{totalPrice.toLocaleString(['id'])}}</p>
+        </div>
+        <div class="mt-8 flex-between g-8" *ngIf="data.paymentMethod === 'CASH'">
+          <p class="body-2">{{data.paymentMethod}}</p>
+          <p class="body-2" (click)="dialogPay()">{{data.pay.toLocaleString(['id'])}}</p>
+        </div>
+        <div class="mt-8 flex-between" *ngIf="data.paymentMethod === 'CREDIT'">
+          <p class="body-2">DP</p>
+          <p class="body-2">{{(data.dp).toLocaleString(['id'])}}</p>
+        </div>
+        <div class="mt-8 flex-between">
+          <p *ngIf="data.paymentMethod === 'CASH'" class="body-2">Kembali</p>
+          <p *ngIf="data.paymentMethod === 'CREDIT'" class="body-2">Sisa Kredit</p>
+          <p *ngIf="data.paymentMethod === 'CASH'" class="body-2">{{data.cashback.toLocaleString(['id'])}}</p>
+          <p *ngIf="data.paymentMethod === 'CREDIT'" class="body-2">{{data.credit.toLocaleString(['id'])}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

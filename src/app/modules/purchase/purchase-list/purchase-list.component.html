@@ -1,0 +1,57 @@
+<div>
+  <div class="hide-to-desktop head-list" >
+    <div class="flex-between">
+      <h6>List Pembelian</h6>
+      <button routerLink="/sales/new-order" mat-button class="btn-primary">New Order</button>
+    </div>
+    <!-- <div class="mt-8">
+			<input [(ngModel)]="cari" (keyup.enter)="getListPurchase()" class="input-search" placeholder="Search transaksi"
+				type="text">
+		</div> -->
+	</div>
+  <div class="flex-between hide-to-mobile" style="margin-top: 20px;">
+		<h6>List Penjualan</h6>
+		<!-- <div>
+			<input [(ngModel)]="cari" (keyup.enter)="getListPurchase()" class="input-search" placeholder="Search purchase"
+				type="text">
+		</div> -->
+		<!-- <button routerLink="/sales/new-order" mat-button class="btn-primary">New Order</button> -->
+	</div>
+  <div class="flex">
+		<div class="card-filter hide-to-mobile">
+			<div class="card-form flex-between">
+				<h6>Filter</h6>
+				<p  class="body-1 font-primary pointer">Reset</p>
+			</div>
+			<hr>
+			<div class="card-form">
+				<p class="body-2">Status Pembayaran</p>
+			</div>
+			<div class="card-form" >
+				<div style="display: grid;">
+					<mat-checkbox (change)="onFilter($event.checked,'CASH')" class="body-2" style="margin-bottom: 16px;">Cash</mat-checkbox>
+					<mat-checkbox (change)="onFilter($event.checked,'CREDIT')" class="body-2" style="margin-bottom: 16px;">Credit</mat-checkbox>
+					<mat-checkbox (change)="onFilter($event.checked,'LUNAS')" class="body-2" style="margin-bottom: 16px;">Lunas</mat-checkbox>
+				</div>
+			</div>
+		</div>
+		<div class=" full list-body">
+			<div >
+				<div class="card-list-item flex "  *ngFor="let item of dataPurchase">
+					<div  class="card-form body-item full " (click)="toDetail(item.id)">
+              <div class="flex-between">
+                <div>
+                  <p class="body-1">{{item.nameSupplier}}</p>
+                  <p class="body-2">{{item.createdAt | date:'dd MMM YYYY'}} </p>
+                </div>
+                  <div style="text-align: right;">
+                      <p class="body-2">{{item.paymentMethod}}</p>
+                      <p class="body-1 font-primary">{{item.total |currency:'Rp.':"symbol":"3.0"}}</p>
+                  </div>
+              </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

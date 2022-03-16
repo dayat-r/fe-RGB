@@ -1,0 +1,19 @@
+
+@media only screen and (max-width: 990px) {
+  .card-img-input{
+    border-radius: 8px;
+    border: 1px solid #666666;
+    width: 100%;
+    max-width: 500px;
+  }
+}
+@media only screen and (min-width: 991px) {
+  .card-img-input{
+    border-radius: 8px;
+    border: 1px solid #666666;
+    width: 300px;
+  }
+  .body-edit{
+    display: flex;
+  }
+}

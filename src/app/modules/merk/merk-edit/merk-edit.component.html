@@ -1,0 +1,31 @@
+<div >
+  <div >
+    <div class="card-form flex g-8">
+      <mat-icon (click)="back()" class="pointer" svgIcon="icon-arrow-left" ></mat-icon>
+      <h6>Edit Merk</h6>
+    </div>
+    <hr>
+    <div class="card-form">
+        <label class="caption">Kode Merek</label>
+        <input [(ngModel)]="data.kodeMerk" class="form-input" type="text" disabled>
+    </div>
+    <div class="card-form">
+        <label class="caption">Name</label>
+        <input [(ngModel)]="data.name" class="form-input" type="text">
+    </div>
+    <div class="card-form" style="display: grid;">
+        <label class="caption">Gambar</label>
+        <!-- <input (change)="selectImage($event)" [(ngModel)]="data.path" class="form-input" type="file"> -->
+        <img (click)="openDialogCrop()" src={{imagePre}} alt="" class="card-img-input mt-8" onerror="this.src='/assets/image/no-image.svg'">
+        <p class="caption font-primary mt-8">upload gambar</p>
+    </div>
+    <div class="end card-form">
+        <div>
+            <button (click)="back()" mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+            <button (click)="onUpdateMerk()" mat-button [disabled]="dataService.loading" [class]="dataService.loading?'btn-disable':'btn-primary'">Update</button>
+        </div>
+    </div>
+
+  </div>
+</div>
+

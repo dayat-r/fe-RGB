@@ -1,0 +1,40 @@
+<div>
+  <div class="card-form flex g-8">
+    <mat-icon (click)="back()" svgIcon="icon-arrow-left"></mat-icon>
+    <h6>Income Edit</h6>
+  </div>
+  <hr>
+  <div class="card-form">
+    <label class="caption">Tipe Pendapatan</label>
+    <mat-select [(ngModel)]="data.noCoa" class="form-input">
+      <mat-option value="add" (click)="onOpenDialogAddCoa()" >
+        <mat-icon  class="icon" svgIcon="icon-plus"></mat-icon>
+        tipe Pendapatan
+      </mat-option>
+      <mat-option *ngFor="let item of dataCoa" [value]="item.noCoa">{{item.description}} </mat-option>
+    </mat-select>
+  </div>
+  <div class="card-form">
+      <label class="caption">Amount</label>
+      <input [(ngModel)]="data.amount" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Date</label>
+      <div class="flex align-center">
+        <input (click)="picker.open()" [(ngModel)]="data.date" class="form-input" type="text" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      </div>
+      <mat-datepicker #picker></mat-datepicker>
+  </div>
+  <div class="card-form">
+      <label class="caption">Description</label>
+      <textarea [(ngModel)]="data.description" class="form-input"cols="30" rows="5"></textarea>
+  </div>
+  <div class="end card-form">
+      <div>
+          <button mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+          <button (click)="onUpdateIncome()" mat-button [disabled]="dataService.loading" [class]="dataService.loading?'btn-disable':'btn-primary'">Update</button>
+      </div>
+  </div>
+
+</div>

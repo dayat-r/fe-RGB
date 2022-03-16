@@ -1,0 +1,269 @@
+<div class="layout-toolbar flex-around ">
+    <div class="card-toolbar flex-between align-center">
+      <div class="flex" style="gap: 50px;">
+
+        <div class="flex align-center">
+          <div class="hide-to-desktop" style="border-radius: 8px;margin-left: 16px;">
+            <mat-icon [matMenuTriggerFor]="menuAll"  style="width: 32px;height: 32px;" svgIcon="icon-menu"></mat-icon>
+          </div>
+          <img routerLink="/dashboard" class="logo-toolbar pointer" src="assets/image/logo-apps.svg" alt="logo app">
+        </div>
+        <div class="flex menu-toolbar body-2 hide-to-mobile" >
+            <p  class="item-menu-toolbar" [matMenuTriggerFor]="menuItems">Product</p>
+            <p class="item-menu-toolbar" [matMenuTriggerFor]="menuTransaksi">Transaksi</p>
+            <p *ngIf="user.role === 'IT' || user.role==='ADMIN'" class="item-menu-toolbar" routerLink="/report">Report</p>
+            <p *ngIf="user.role === 'IT' || user.role==='ADMIN'" class="item-menu-toolbar" routerLink="/supplier">Supplier</p>
+            <p class="item-menu-toolbar" routerLink="/customer">Customer</p>
+            <p class="item-menu-toolbar" routerLink="/miner">Miner</p>
+            <!-- <p class="item-menu-toolbar">Item 4</p> -->
+        </div>
+      </div>
+        <div class="flex align-center">
+          <mat-icon [matMenuTriggerFor]="menuAlert" *ngIf="dataAlert && dataAlert.length==0" svgIcon="icon-notification"  matBadgeColor="warn"></mat-icon>
+          <mat-icon [matMenuTriggerFor]="menuAlert" *ngIf="dataAlert && dataAlert.length>0" svgIcon="icon-notification" matBadge={{dataAlert.length}} matBadgeColor="warn"></mat-icon>
+          <button mat-button [matMenuTriggerFor]="menuProfile">
+              <div class="flex pointer btn-profile align-center">
+                  <ngx-avatar
+                      [size]="20"
+                      [textSizeRatio]="2"
+                      [name]="user.name"
+                  ></ngx-avatar>
+                  <span class="body-2" style="margin-left: 8px;">{{user.name}}</span>
+              </div>
+          </button>
+        </div>
+    </div>
+</div>
+
+<mat-menu #menuAll>
+  <div class="menu-layout">
+    <div routerLink="/item-list" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">List Product</p>
+        <hr>
+        <p class="caption">Fitur cek detail dan harga produk</p>
+      </div>
+    </div>
+    <div routerLink="item/tranfer-item"  class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-transfer" class="icon-menu" style="width: 40px !important; height: 40px !important;"></mat-icon>
+      <div>
+        <p class="body-1">Transfer Product</p>
+        <hr>
+        <p class="caption">Fitur pemindahan stok barang ke toko atau gudang</p>
+      </div>
+    </div>
+    <div routerLink="/merk" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-merk" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Merk Setting</p>
+        <hr>
+        <p class="caption">Terdapat list merk mobil yang tersedia produk nya</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/sales/new-order" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-new-order" class="icon-menu" style="width: 40px !important; height: 40px !important;"></mat-icon>
+      <div>
+        <p class="body-1">New Order</p>
+        <hr>
+        <p class="caption">Fitur penjualan barang</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/sales" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-list-order" class="icon-menu" style="width: 40px !important; height: 40px !important;"></mat-icon>
+      <div>
+        <p class="body-1">List Order</p>
+        <hr>
+        <p class="caption">Berisi list pennjualan barang </p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/cost" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-cost" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Pengeluaran</p>
+        <hr>
+        <p class="caption">Fitur list dan input pengeluaran CV berupa beban</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/income" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-income" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Pemasukan</p>
+        <hr>
+        <p class="caption">Fitur tampilan list dan input pemasukan CV secara manual</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/purchase" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-buy" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">List Pembelian</p>
+        <hr>
+        <p class="caption">Lorem ipsum dolor sit amet consectetur</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/payment/debt" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Hutang</p>
+        <hr>
+        <p class="caption">Fitur list hutang dan pembayaran hutang</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/payment/ar" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Piutang</p>
+        <hr>
+        <p class="caption">Fitur list piutang dan pembayaran piutang</p>
+      </div>
+    </div>
+    <div routerLink="/report" *ngIf="user.role === 'IT' || user.role==='ADMIN' " class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Report</p>
+        <hr>
+        <p class="caption">Fitur kumpulan proses pembukuan keuangan</p>
+      </div>
+    </div>
+    <div routerLink="/customer" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Customer</p>
+        <hr>
+        <p class="caption">Fitur dukungan data customer</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/supplier" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Supplier</p>
+        <hr>
+        <p class="caption">Fitur dukungan data supplier</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/miner" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Miner</p>
+        <hr>
+        <p class="caption">Fitur dukungan data miner</p>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<mat-menu #menuProfile>
+    <button routerLink="/profile"  mat-menu-item>Profile</button>
+    <hr>
+    <button *ngIf="user.role === 'IT' || user.role==='ADMIN' " mat-menu-item routerLink="/user">User Setting</button>
+    <button *ngIf="user.role === 'IT' || user.role==='ADMIN'" mat-menu-item routerLink="/coa">COA Setting</button>
+    <button *ngIf="user.role === 'IT' || user.role==='ADMIN'" mat-menu-item routerLink="/location-code">Location Setting</button>
+    <hr>
+    <button mat-menu-item (click)="onLogout()">Logout</button>
+</mat-menu>
+<mat-menu #menuAlert >
+    <div class="flex-around align-center layout-alert"  *ngIf="dataAlert && dataAlert.length==0">
+      <div style="text-align: center;">
+        <mat-icon svgIcon="icon-notification" ></mat-icon>
+        <p class="caption">Tidak ada tagihan jatuh tempo</p>
+      </div>
+    </div>
+    <div class="layout-alert"  *ngIf="dataAlert && dataAlert.length>0">
+      <div *ngFor="let item of dataAlert" class="list-alert" >
+        <div (click)="toNext(item.type)">
+          <p class="caption">{{item.date | date:'dd MM YYYY'}}</p>
+          <p class="caption mt-4">{{item.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex-around">
+      <p routerLink="/alert" class="caption font-primary pointer">Lihat selengkapnya</p>
+    </div>
+</mat-menu>
+<mat-menu #menuItems>
+  <div class="menu-layout">
+    <div routerLink="/item-list" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">List Product</p>
+        <hr>
+        <p class="caption">Fitur cek detail dan harga produk</p>
+      </div>
+    </div>
+    <div routerLink="item/tranfer-item"  class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-transfer" class="icon-menu" style="width: 40px !important; height: 40px !important;"></mat-icon>
+      <div>
+        <p class="body-1">Transfer Product</p>
+        <hr>
+        <p class="caption">Fitur pemindahan stok barang ke toko atau gudang</p>
+      </div>
+    </div>
+    <div routerLink="/merk" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-merk" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Merk Setting</p>
+        <hr>
+        <p class="caption">Terdapat list merk mobil yang tersedia produk nya</p>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<mat-menu #menuTransaksi  >
+  <div class="menu-layout">
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/sales/new-order" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-new-order" class="icon-menu" style="width: 40px !important; height: 40px !important;" ></mat-icon>
+      <div>
+        <p class="body-1">New Order</p>
+        <hr>
+        <p class="caption">Fitur penjualan barang</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/sales" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-list-order" class="icon-menu" style="width: 40px !important; height: 40px !important;"></mat-icon>
+      <div>
+        <p class="body-1">List Order</p>
+        <hr>
+        <p class="caption">Berisi list pennjualan barang </p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/cost" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-cost" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Pengeluaran</p>
+        <hr>
+        <p class="caption">Fitur list dan input pengeluaran CV berupa beban</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/income" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-income" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Pemasukan</p>
+        <hr>
+        <p class="caption">Fitur tampilan list dan input pemasukan CV secara manual</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/purchase" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-buy" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">List Pembelian</p>
+        <hr>
+        <p class="caption">Lorem ipsum dolor sit amet consectetur</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/payment/debt" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Hutang</p>
+        <hr>
+        <p class="caption">Fitur list hutang dan pembayaran hutang</p>
+      </div>
+    </div>
+    <div *ngIf="user.role === 'IT' || user.role==='ADMIN'" routerLink="/payment/ar" class="card-menu pointer flex g-8 align-center" >
+      <mat-icon svgIcon="icon-item" class="icon-menu"></mat-icon>
+      <div>
+        <p class="body-1">Piutang</p>
+        <hr>
+        <p class="caption">Fitur list piutang dan pembayaran piutang</p>
+      </div>
+    </div>
+  </div>
+</mat-menu>

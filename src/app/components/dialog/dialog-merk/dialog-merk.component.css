@@ -1,0 +1,29 @@
+
+.list-merk{
+  height: 300px;
+  overflow: auto;
+}
+.list:hover{
+  background-color: #e0e0e0;
+}
+
+.list{
+  padding: 8px 24px;
+}
+ ::ng-deep .mat-dialog-container{
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+
+@media only screen and (min-width: 991px) {
+  .dialog-merk{
+    width: 300px;
+  }
+
+}
+
+
+
+
+

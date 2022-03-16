@@ -1,0 +1,135 @@
+<div class="layout-detail">
+  <div class="detail-head">
+    <div class="flex align-center head-left" >
+      <mat-icon (click)="back()" style="margin-right: 8px;" svgIcon="icon-arrow-left"></mat-icon>
+      <h6 class="hide-to-mobile">Detail Produk</h6>
+    </div>
+    <div class="flex-between full">
+      <h6 style="text-transform: capitalize;">{{dataItem?.description}} {{dataItem?.namaMerkMobil}} {{dataItem?.tipeMobil}}</h6>
+      <div class="flex" style="gap: 10px;">
+      </div>
+    </div>
+
+  </div>
+  <hr class="hide-to-mobile">
+  <div class="content-detail">
+      <div class="grid-detail full">
+        <div class="card-img">
+
+          <img class="img-detail" src={{getImage()}} alt="" onerror="this.src='/assets/image/no-image.svg'">
+        </div>
+        <div class="full">
+
+          <div class="full between-desktop">
+
+            <div class="full" >
+              <div class="flex-between card-form" >
+                <p class="body-2">Barcode Produk</p>
+                <p class="body-2">{{dataItem?.barcode}}</p>
+              </div>
+              <div class="flex-between card-form" >
+                <p class="body-2">Merek Produk</p>
+                <p class="body-2">{{dataItem?.merk}}</p>
+              </div>
+              <div class="flex-between card-form" >
+                <p class="body-2">Total Stok</p>
+                <p class="body-2">{{dataItem?.total}}</p>
+              </div>
+
+              <div class="card-form" style="padding-top: 0;padding-bottom: 0;">
+                <div *ngFor="let item of dataLocation" class="flex align-center" style="margin-bottom: 5px;">
+                    <div class="list-location-left">
+                      <p class="body-2">{{item.location}}</p>
+                    </div>
+                    <div class="list-price-right ">
+                      <p class="body-2">Qty : {{item.qty}}</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="full">
+              <div class="card-form flex-between" >
+                <p class="body-2">Merek Mobil</p>
+                <p class="body-2">{{dataItem?.namaMerkMobil}}</p>
+              </div>
+              <div class="card-form flex-between" >
+                <p class="body-2">Tipe Mobil</p>
+                <p class="body-2">{{dataItem?.tipeMobil}}</p>
+              </div>
+              <!-- <div class="card-form " >
+                <div class=" flex-between">
+                  <p class="body-2">Supplier</p>
+                  <p class="body-2">{{dataItem?.namaSupplier}}</p>
+                </div>
+                <hr>
+              </div> -->
+              <div class="card-form">
+                <p class="caption">Catatan</p>
+                <div class="card-note ">
+                  <p class="body-2">{{dataItem?.description2}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex end card-form ">
+            <div class="flex g-8">
+              <button *ngIf="role === 'IT' || role==='ADMIN'" (click)="toAddProduct()" mat-button class="btn-primary ">
+                <mat-icon svgIcon="icon-plus" class="icon" style="margin-right: 5px;"></mat-icon>
+                <span>Stock</span>
+              </button>
+
+              <button *ngIf="role === 'IT' || role==='ADMIN'" (click)="onPrintBarcode()" mat-button class="btn-primary ">
+                <mat-icon svgIcon="icon-plus" class="icon" style="margin-right: 5px;"></mat-icon>
+                <span>Print Barcode</span>
+              </button>
+              <button *ngIf="role === 'IT' || role==='ADMIN'" (click)="toEdit()" mat-button class="btn-primary ">
+                <mat-icon svgIcon="icon-edit" class="icon" style="margin-right: 5px;"></mat-icon>
+                <span class="hide-to-mobile">Produk</span>
+              </button>
+              <button *ngIf="role === 'IT' || role==='ADMIN'" (click)="onDelete()" mat-button class="btn-primary">
+                <mat-icon svgIcon="icon-delete" class="icon" style="margin-right: 5px;"></mat-icon>
+                <span class="hide-to-mobile">Produk</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <div class="card-form" style="padding-top: 0; padding-bottom: 0;">
+    <label class="body-2">Harga Referensi</label>
+    <table style="width: 100%;border-collapse: separate;border-spacing: 5px;">
+      <tr *ngFor="let item of dataPrice" style="margin-bottom: 5px;">
+        <td class="list-price-left ">
+          <p class="body-2">{{item.createdAt | date : 'dd MMM YYYY'}}</p>
+        </td>
+        <td>
+          <p class="body-2">{{item.supplier}}</p>
+        </td>
+        <td>
+          <p class="body-2">Rp. {{item.priceUnit.toLocaleString(['id'])}}</p>
+        </td>
+        <td>
+          <p class="body-2">Qty : {{item.qtyOut}}</p>
+        </td>
+        <td *ngIf="item.typeDiskon === 'Percentage'">
+          <p class="body-2" >Disc : {{item.diskon}}%</p>
+        </td>
+        <td *ngIf="item.typeDiskon === 'Amount'">
+          <p class="body-2" >Disc : {{item.diskon.toLocaleString('ban')}}</p>
+        </td>
+        <td *ngIf="item.ppnCheck && item.ppnStatus === 'BEFORE'">
+          <p class="body-2" >PPN : {{((item.ppn/100)*item.priceUnit).toLocaleString('ban')}}</p>
+        </td>
+        <td *ngIf="item.ppnCheck && item.ppnStatus === 'AFTER' && item.typeDiskon === 'Amount'">
+          <p class="body-2" >PPN : {{((item.ppn/100)*(item.priceUnit-item.diskon)).toLocaleString('ban')}}</p>
+        </td>
+        <td *ngIf="item.ppnCheck && item.ppnStatus === 'AFTER' && item.typeDiskon === 'Percentage'">
+          <p class="body-2" >PPN : {{((item.ppn/100)*(item.priceUnit-((item.diskon/100)*item.priceUnit))).toLocaleString('ban')}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+

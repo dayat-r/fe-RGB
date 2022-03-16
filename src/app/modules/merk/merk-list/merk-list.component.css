@@ -1,0 +1,99 @@
+
+.card-merk-item{
+  position: relative;
+}
+.card-merk-img{
+  background-color: #e0e0e0;
+  border-radius: 8px 8px 0 0 ;
+  border: 1px solid #e0e0e0;
+}
+.card-merk-title{
+  border-bottom:  1px solid #e0e0e0;
+  border-right:  1px solid #e0e0e0;
+  border-left:  1px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+}
+
+.btn-primary-circle{
+  background-color: #eb5731;
+  color: white;
+  width: 30px;
+  padding: 5px;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+.btn-secondary-circle{
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+
+
+@media only screen and (max-width: 600px) {
+  .list-merk{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    padding: 0 16px;
+    height: calc(100vh - 180px);
+    overflow: auto;
+  }
+  .form-input-search{
+    margin: 8px 16px;
+  }
+  .card-search{
+    margin: 8px 0;
+  }
+  .head-merk{
+    padding: 8px 16px;
+  }
+}
+@media only screen and (min-width: 601px) {
+  .list-merk{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    height: calc(100vh - 180px);
+    overflow: auto;
+
+  }
+  .card-search{
+    margin: 16px 0;
+  }
+  .head-merk{
+    padding: 8px 16px;
+  }
+
+}
+@media only screen and (min-width: 991px) {
+  .list-merk{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 10px;
+    height: calc(100vh - 140px);
+    overflow: auto;
+  }
+  .card-search{
+    margin: 20px 0;
+  }
+}

@@ -1,0 +1,56 @@
+<div class="dialog-update-qty">
+  <div class="card-form" >
+    <h6 >Edit Order</h6>
+  </div>
+  <div class="card-form">
+    <label class="caption">Stock Place</label>
+    <mat-select (selectionChange)="matSelectChange()" [(ngModel)]="location" class="form-input">
+      <div  *ngFor="let item of dataLocation">
+        <mat-option (click)="setMaxQty(item.qty,item.priceUnit)" *ngIf="item.qty>0" value={{item.locCode}}>
+          <div class="flex-between" >
+            <p>{{item.name}}</p>
+            <p>{{item.qty }}</p>
+          </div>
+        </mat-option>
+      </div>
+    </mat-select>
+  </div>
+  <div class="card-form">
+    <label class="caption">Qty</label>
+      <input  (input)="cekInputQty()" placeholder="0"  [(ngModel)]="qty" class="form-input" type="number">
+      <p *ngIf="status.qty" class="caption font-primary">Jumlah kuantitas melebihi stok</p>
+  </div>
+  <!-- <div class="card-form">
+    <div class="flex-between">
+      <label class="caption">Price</label>
+      <p class="caption font-primary">{{priceUnit.toLocaleString(['ban','id'])}}</p>
+    </div>
+    <input placeholder="0" (input)="cekPrice()" [(ngModel)]="data.price"  class="form-input" type="text">
+    <p *ngIf="status.price" class="caption font-primary">Harga jual lebih rendah dari modal</p>
+
+  </div> -->
+  <div class="card-form">
+    <label class="caption">Diskon</label>
+    <div class="flex-between align-center" style="gap: 10px;">
+      <input (input)="calculate()" [(ngModel)]="diskon" placeholder="0"  class="form-input" type="text">
+      <p *ngIf="typeDiscount === 'Percentage'" class="body-1 mt-8">%</p>
+      <mat-select (selectionChange)="matSelectChange()" [(ngModel)]="typeDiscount" class="form-input">
+        <mat-option value="Amount">Amout</mat-option>
+        <mat-option value="Percentage">Percentage</mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="card-form ">
+    <hr>
+    <div class="flex-between">
+
+      <p class="body-2">Total</p>
+      <p class="body-2" *ngIf="totalPrice">Rp. {{totalPrice.toLocaleString(['ban','id']) || 0}}</p>
+      <p class="body-2" *ngIf="!totalPrice">Rp. 0</p>
+    </div>
+  </div>
+  <div class="card-form">
+    <button  [mat-dialog-close]="true" (click)="onOrder()" mat-button class="btn-primary full">Update Order</button>
+  </div>
+</div>

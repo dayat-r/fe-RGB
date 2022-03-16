@@ -1,0 +1,52 @@
+<div>
+  <div class="mt-8 flex g-8 p-mobile">
+    <mat-icon class="pointer" (click)="back()" svgIcon="icon-arrow-left" ></mat-icon>
+    <h6>Sales Report</h6>
+  </div>
+  <div class=" between-desktop g-8 card-form" >
+    <div class="full flex g-8">
+      <div  class="full">
+        <label class="caption">Filter berdasarkan</label>
+        <mat-select (selectionChange)="cekFilter()" [(ngModel)]="filter" class="form-input" style="height: 37px;">
+          <mat-option value="today">Hari ini</mat-option>
+          <mat-option value="this-month">Bulan ini </mat-option>
+          <mat-option value="this-year">Tahun ini</mat-option>
+          <mat-option value="range-date">Rentang Tanggal</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="full flex g-8 mt-mobile">
+      <div class="full">
+        <label class="caption">Rentang tanggal</label>
+        <div class="flex g-8 mt-8">
+          <input (dateChange)="cekFilter()" [(ngModel)]="start"  placeholder="starting date" [disabled]="filter!= 'range-date'" (click)="picker.open()"  class="form-input" type="text" [matDatepicker]="picker" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker></mat-datepicker>
+          <input (dateChange)="cekFilter()" [(ngModel)]="end"  placeholder="ending date" [disabled]="filter!= 'range-date'" (click)="picker1.open()"  class="form-input" type="text" [matDatepicker]="picker1" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker1></mat-datepicker>
+        </div>
+      </div>
+      <button [disabled]="disable" (click)="getSalesReport()" mat-button class="btn-primary" style="height: 37px;margin-top: 24px;">View</button>
+
+    </div>
+  </div>
+
+  <div class="mt-8 flex-around" *ngIf="dataSales">
+    <table class="table">
+      <tr style="background-color: white;">
+        <td class="body-2" style="width: 60px;">No</td>
+        <td class="body-2">No Order</td>
+        <td class="body-2">Customer</td>
+        <td class="body-2">Status Order</td>
+        <td class="body-2" style="text-align: center;">Total</td>
+      </tr>
+      <tr  *ngFor="let item of dataSales;index as i">
+        <td class="body-2" style="width: 60px;">{{i+1}}</td>
+        <td class="body-2">{{item.idSales}}</td>
+        <td class="body-2">{{item.customer}}</td>
+        <td class="body-2">{{item.paymentMethod}}</td>
+        <td class="body-2" style="text-align: right;">{{(math(item.total)).toLocaleString(['ban'])}}</td>
+      </tr>
+
+    </table>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div>
+  <div class="mt-8 flex g-8 p-mobile">
+    <mat-icon class="pointer" (click)="back()" svgIcon="icon-arrow-left" ></mat-icon>
+    <h6>Item Sales Report</h6>
+  </div>
+  <div class=" between-desktop g-8 card-form" >
+    <div class="full flex g-8">
+      <div class="full" >
+        <label class="caption">Item</label>
+        <div style="height: 37px;" (click)="onOpenDialogItem()" class="form-input" type="text">
+          {{item}}</div>
+      </div>
+      <div  class="full">
+        <label class="caption">Filter berdasarkan</label>
+        <mat-select (selectionChange)="cekFilter()" [(ngModel)]="filter" class="form-input" style="height: 37px;">
+          <mat-option value="today">Hari ini</mat-option>
+          <mat-option value="this-month">Bulan ini </mat-option>
+          <mat-option value="this-year">Tahun ini</mat-option>
+          <mat-option value="range-date">Rentang Tanggal</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="full flex g-8 mt-mobile">
+      <div class="full">
+        <label class="caption">Rentang tanggal</label>
+        <div class="flex g-8 mt-8">
+          <input (dateChange)="cekFilter()" [(ngModel)]="start"  placeholder="starting date" [disabled]="filter!= 'range-date'" (click)="picker.open()"  class="form-input" type="text" [matDatepicker]="picker" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker></mat-datepicker>
+          <input (dateChange)="cekFilter()" [(ngModel)]="end"  placeholder="ending date" [disabled]="filter!= 'range-date'" (click)="picker1.open()"  class="form-input" type="text" [matDatepicker]="picker1" style="margin-top: 0;height: 37px;">
+          <mat-datepicker  #picker1></mat-datepicker>
+        </div>
+      </div>
+        <button [disabled]="disable" (click)="getItemSalesReport()" mat-button class="btn-primary" style="height: 37px;margin-top: 24px;">View</button>
+    </div>
+  </div>
+  <div class="mt-8 flex-around" *ngIf="dataItem">
+    <table class="table">
+      <tr style="background-color: white;">
+        <td class="body-2" style="width: 60px;">No</td>
+        <td class="body-2">Tanggal</td>
+        <td class="body-2">Harga</td>
+        <td class="body-2">Qty</td>
+        <td class="body-2">Diskon</td>
+        <td class="body-2">Total</td>
+      </tr>
+      <tr  *ngFor="let item of dataItem;index as i">
+        <td class="body-2" style="width: 60px;">{{i+1}}</td>
+        <td class="body-2">{{item.date | date:'dd MMM YYYY'}}</td>
+        <td class="body-2">{{item.price.toLocaleString(['ban'])}}</td>
+        <td class="body-2">{{item.qty}}</td>
+        <td class="body-2">{{(item.typeDiscount==='Amount')?(item.diskon):((item.price*item.qty)*(item.diskon/100)).toLocaleString(['ban'])}}</td>
+        <td class="body-2" *ngIf="item.diskon">{{((item.typeDiscount === 'Amount')?((item.price*item.qty)-item.diskon):((item.price*item.qty)-((item.price*item.qty)*(item.diskon/100)))).toLocaleString(['ban'])}}</td>
+        <td class="body-2" *ngIf="!item.diskon">{{(item.price * item.qty).toLocaleString(['ban'])}}</td>
+      </tr>
+
+    </table>
+  </div>
+</div>

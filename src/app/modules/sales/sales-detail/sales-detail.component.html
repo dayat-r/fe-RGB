@@ -1,0 +1,147 @@
+<div>
+
+  <div class="card-form flex-between">
+    <div class="flex g-8">
+      <mat-icon svgIcon="icon-arrow-left" class="pointer" (click)="back()"></mat-icon>
+      <h6>Detail Order</h6>
+    </div>
+    <div class="flex" style="gap: 10px;">
+      <button (click)="onDeleteSales()" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-delete" style="width: 18px;"></mat-icon>
+        Order
+      </button>
+      <button *ngIf="dataUser.role === 'IT'" (click)="onEditSalesOrder()" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-edit" style="width: 18px;"></mat-icon>
+        Order
+      </button>
+    </div>
+  </div>
+  <div >
+    <div class="body-left card-form">
+      <div class="flex-between">
+        <div class="full">
+          <div>
+            <label class="caption">Nomor Transaksi</label>
+            <p class="body-1 mt-4"> {{idSales}}</p>
+          </div>
+          <div class="mt-16">
+            <label class="caption">Waktu Transaksi</label>
+            <p class="body-1 mt-4"> {{data.date | date:'dd MMM YYYY HH:mm:ss'}}</p>
+          </div>
+          <div class="mt-16">
+            <label class="caption">Sales</label>
+            <p class="body-1 mt-4"> {{data.userName}}</p>
+          </div>
+          <div class="mt-16">
+            <label class="caption">Customer</label>
+            <p class="body-1 mt-4"> {{data.customerName}}</p>
+          </div>
+
+        </div>
+        <div class="full">
+
+          <div class="mt-16">
+            <label class="caption">Status Pembayaran</label>
+            <p class="body-1 mt-4"> {{data.paymentMethod}}</p>
+          </div>
+          <div class="mt-16">
+            <label class="caption">Note</label>
+            <textarea disabled [(ngModel)]="data.note" class="form-input" cols="3" rows="3"></textarea>
+          </div>
+          <div class="mt-16" *ngIf="data.paymentMethod === 'CREDIT'">
+            <label class="caption">Tanggal Pembayaran</label>
+            <p class="body-1 mt-4"> {{data.limitDate | date:'dd MMM YYYY'}}</p>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="card-form">
+      <label class="caption">Item</label>
+      <div class="list-product mt-8">
+        <div class="card-list-item flex " *ngFor="let item of dataItem.slice().reverse(); let i=index">
+          <div class="card-img-item">
+            <img class="img-item" src={{getImage(item.path)}} alt="" onerror="this.src='/assets/image/no-image.svg'">
+          </div>
+          <div class=" body-item full">
+            <div class="flex-between">
+              <div>
+                <p class="body-1">{{item.description}} {{item.merkMobil}} {{item.tipeMobil}}</p>
+                <p class="body-2 font-primary mt-16">{{item.price | currency:"Rp.":'symbol':'3.0'}}</p>
+              </div>
+              <p class="body-1">{{item.location}}</p>
+            </div>
+            <hr>
+            <div>
+              <div class="flex-between">
+                <div >
+
+                  <div class="flex" style="width: 40px;">
+                    <p class="body-2">Qty</p>
+                    <p class="body-2"> : {{item.qty}}</p>
+                  </div>
+                  <div class="flex">
+                    <p class="body-2">Diskon :</p>
+                    <p class="body-2" *ngIf="item.typeDiscount === 'Amount' && item.diskon !== 0"> {{item.diskon |
+                      currency:"Rp.":'symbol':'3.0'}}</p>
+                    <p class="body-2" *ngIf="item.typeDiscount === 'Percentage' && item.diskon !== 0"> {{item.diskon}} %
+                    </p>
+                    <p class="body-2" *ngIf="item.diskon === 0"> 0</p>
+                  </div>
+                </div>
+                <div class="flex end">
+                  <p class="body-1" style="margin-right: 16px;">Sub. Total </p>
+                  <p class="body-1" *ngIf="item.typeDiscount === 'Amount'"> {{(item.price * item.qty) - item.diskon |
+                    currency:"Rp." :'symbol':'3.0'}}</p>
+                  <p class="body-1" *ngIf="item.typeDiscount === 'Percentage'"> {{((item.price * item.qty) - ((item.price
+                    * item.qty)*item.diskon/100)).toLocaleString(['id'])}}</p>
+                  <p class="body-1" *ngIf="!item.typeDiscount"> {{item.price * item.qty |
+                    currency:"Rp.":'symbol':'3.0'}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-order">
+      <div class="flex-between">
+        <p class="body-1">Dpp</p>
+        <p class="body-1">{{dpp.toLocaleString(['id'])}}</p>
+      </div>
+      <div class="flex-between mt-8">
+        <p class="body-1" *ngIf="data.ppnStatus === 'BEFORE'">PPN Sebelum Diskon</p>
+        <p class="body-1" *ngIf="data.ppnStatus === 'AFTER'">PPN Setelah Diskon</p>
+        <p class="body-1 mt-8" *ngIf="data.ppnStatus === 'AFTER'">{{(totalPrice-dpp).toLocaleString(['id'])}}</p>
+        <p class="body-1 mt-8" *ngIf="data.ppnStatus === 'BEFORE'">{{(math((totalPrice+ totalDiskon)*(data.ppn/110))).toLocaleString(['id'])}}</p>
+      </div>
+      <div class="flex-between mt-8">
+        <p class="body-1">Total</p>
+        <p class="body-1">{{(math(totalPrice)).toLocaleString(['id'])}}</p>
+      </div>
+      <div class="mt-8 flex-between" *ngIf="data.paymentMethod === 'CASH'">
+        <p class="body-1">{{data.paymentMethod}}</p>
+        <p class="body-1">{{(math(data.pay)).toLocaleString(['id'])}}</p>
+      </div>
+      <div class="mt-8 flex-between" *ngIf="data.paymentMethod === 'CREDIT'">
+        <p class="body-1">DP</p>
+        <p class="body-1">{{(math(data.dp)).toLocaleString(['id'])}}</p>
+      </div>
+      <div class="mt-8 flex-between">
+        <p *ngIf="data.paymentMethod === 'CASH'" class="body-1">Kembali</p>
+        <p *ngIf="data.paymentMethod === 'CREDIT'" class="body-1">Sisa Kredit</p>
+        <p *ngIf="data.paymentMethod === 'CASH'" class="body-1">{{(math(data.cashback)).toLocaleString(['id'])}}</p>
+        <p *ngIf="data.paymentMethod === 'CREDIT'" class="body-1">{{(math(data.credit)).toLocaleString(['id'])}}</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="mt-16 card-form flex end">
+    <button (click)="generatePdfSO()" mat-button class="btn-primary btn-order">Print Faktur</button>
+  </div>
+
+
+</div>

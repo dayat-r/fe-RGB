@@ -1,0 +1,33 @@
+<div>
+  <div class="card-form flex-between">
+      <h6>Customer Add</h6>
+      <mat-icon [mat-dialog-close] svgIcon="icon-close" class="icon pointer" ></mat-icon>
+  </div>
+  <hr>
+  <div class="card-form">
+      <label class="caption">Name</label>
+      <input [(ngModel)]="data.name" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Address</label>
+      <input [(ngModel)]="data.address" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Telp</label>
+      <input [(ngModel)]="data.telp" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+    <label class="caption">Kota</label>
+    <mat-select class="form-input" [(ngModel)]="data.deptCode">
+      <mat-option value="PDG">PADANG</mat-option>
+      <mat-option value="PKU">PEKANBARU</mat-option>
+    </mat-select>
+</div>
+  <div class="end card-form">
+      <div>
+          <button mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+          <button (click)="onSaveCustomer()" mat-button class="btn-primary">Save</button>
+      </div>
+  </div>
+
+</div>

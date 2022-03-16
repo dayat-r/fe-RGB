@@ -1,0 +1,11 @@
+::ng-deep .mat-dialog-container{
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+@media only screen and (min-width: 991px) {
+  .dialog-update-qty{
+    width: 400px;
+
+  }
+}

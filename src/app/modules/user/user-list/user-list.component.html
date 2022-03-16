@@ -1,0 +1,48 @@
+<div>
+	<div class="flex-between" style="margin-top: 20px;">
+		<h6 >List User</h6>
+		<div>
+			<input (keyup.enter)="getUser()" [(ngModel)]="cari" class="input-search" placeholder="Search user" type="text">
+		</div>
+    <button routerLink="/user/add" mat-button class="btn-secondary">Add User</button>
+	</div>
+  <!-- <hr> -->
+  <div *ngIf="dataUser?.length==0" class="flex-around align-center" style="height: calc(100vh - 200px);">
+    <div>
+      <p class="caption">Belum ada User</p>
+    </div>
+  </div>
+  <div  *ngIf="dataUser?.length>0" style="margin-top: 24px;">
+    <div  class="flex-between card-form" style="border-bottom: 1px solid #e0e0e0;background-color: #e0e0e0;border-radius: 0 0 16px 16px;">
+      <div style="display: grid;grid-template-columns: repeat(4,1fr);width: 90%;">
+        <p class="body-1">Name</p>
+        <p class="body-1">Email</p>
+        <p class="body-1">Role</p>
+        <p class="body-1">Kota</p>
+      </div>
+      <div class="flex">
+        <!-- <p class="caption font-primary pointer">action</p> -->
+        <!-- <button mat-button class="btn-secondary" style="margin-right: 10px;">edit</button>
+        <button mat-button class="btn-primary">Delete</button> -->
+      </div>
+    </div>
+    <div class="list-supplier">
+
+      <div *ngFor="let item of dataUser" class="flex-between card-form " style="border-bottom: 1px solid #e0e0e0;">
+        <div style="display: grid;grid-template-columns: repeat(4,1fr);width: 90%;">
+          <p class="body-1">{{item.name}}</p>
+          <p class="body-1">{{item.email}}</p>
+          <p class="body-1">{{item.role}}</p>
+          <p class="body-1">{{item.deptCode}}</p>
+        </div>
+        <div class="flex">
+          <!-- <p class="caption font-primary pointer">delete</p> -->
+          <button (click)="toEdit(item.idUser)" mat-button class="btn-secondary-list" style="margin-right: 10px;">edit</button>
+          <button mat-button class="btn-primary-list" (click)="onDelete(item.idUser)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+
+.card-date{
+  background-color: #eb5731;
+  border-radius: 8px 0 0 8px;
+  color: white;
+  width: 250px;
+  text-align: center;
+}
+.card-content{
+  background-color: #e0e0e0;
+  border-radius: 0 8px 8px 0;
+  width: 100%;
+}
+
+
+@media only screen and (max-width: 990px) {
+  .card-body{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .card-list-income{
+    padding: 8px 16px;
+  }
+}
+@media only screen and (min-width: 991px) {
+  .card-body{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 100%;
+  }
+  .card-list-income{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}

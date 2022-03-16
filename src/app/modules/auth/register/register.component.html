@@ -1,0 +1,42 @@
+<div class="bg-image">
+
+</div>
+<div class="flex-around align-center layout-login" >
+	<div class="card-login align-center">
+		<div class="flex-around ">
+			<img class="logo-app" src="assets/image/logo-apps.svg" alt="">
+		</div>
+		<div class="card-form">
+			<h5>Login</h5>
+			<hr class="mt-8">
+			<div class="mt-8">
+				<label class="caption">Email</label>
+				<input [(ngModel)]="email" class="form-input" type="email" autocomplete="off" required>
+			</div>
+			<div class="mt-8">
+				<label class="caption">Role</label>
+				<input [(ngModel)]="role" class="form-input" type="role" autocomplete="off" required>
+			</div>
+			<div class="mt-8">
+				<label class="caption">Dept Code</label>
+				<input [(ngModel)]="deptCode" class="form-input" type="deptCode" autocomplete="off" required>
+			</div>
+			<div class="mt-8">
+				<label class="caption">Password</label>
+				<div>
+					<input (keyup.enter)="onLogin()" [(ngModel)]="password" class="form-input" [type]="hide ? 'password' : 'text'" name="password" required>
+				</div>
+			</div>
+			<div>
+				<div class="flex-between mt-8">
+					<div>
+						<a class="caption font-primary pointer">Lupa Password</a>
+					</div>
+					<div class="end">
+						<button mat-button (click)="onLogin()" [disabled]="dataService.loading"  mat-button [class]="dataService.loading?'btn-disable':'btn-primary'" mat-button>Login</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<div class="dialog-customer">
+  <div class="card-form flex-between" >
+    <h6>List Customer</h6>
+    <mat-icon [mat-dialog-close] class="icon pointer" svgIcon="icon-close" ></mat-icon>
+  </div>
+  <div class="card-form" style="padding-top: 0;">
+    <input style="width: 100%;" (keyup.enter)="getCustomer()" [(ngModel)]="cari" class="input-search" placeholder="Search customer" type="text">
+  </div>
+  <div class="list-customer">
+    <div *ngFor="let item of dataCustomer" >
+
+      <div (click)="onSelect(item.idCustomer , item.name)" class="list card-form pointer" >
+        <p  class="body-2">{{item.name}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-form">
+    <button (click)="dialogAddCustomer()" mat-button class="btn-primary full">
+      <mat-icon svgIcon="icon-plus" style="width: 18px;"></mat-icon>
+        Customer Baru
+    </button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+::ng-deep .mat-dialog-container{
+  padding: 0;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #eb5731 !important;
+
+
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+  background-color: #eb5731 !important;
+}
+
+.input-dialog{
+  max-height: 420px;
+  overflow: auto;
+}
+
+
+@media only screen and (min-width: 991px) {
+  .dialog-stok{
+    width: 400px;
+  }
+
+}

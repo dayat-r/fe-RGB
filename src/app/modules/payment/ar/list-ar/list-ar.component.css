@@ -1,0 +1,26 @@
+
+
+.list-piutang{
+  height: calc(100vh - 140px);
+  overflow: auto;
+}
+
+@media only screen and (max-width: 990px) {
+  .layout-list{
+    padding: 0 16px;
+    background-color: white;
+    height: 100%;
+  }
+  .form-input-search{
+    width: auto !important;
+  }
+}
+@media only screen and (min-width: 991px) {
+  .layout-list{
+    border-radius: 8px;
+    padding: 16px 24px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    height: 100%;
+  }
+}

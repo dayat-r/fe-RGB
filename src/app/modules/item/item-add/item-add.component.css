@@ -1,0 +1,15 @@
+.card-img-input{
+  border-radius: 8px;
+  border: 1px solid #666666;
+  /* max-width: 350px; */
+  width: 300px;
+}
+
+@media only screen and (max-width: 990px) {
+
+}
+@media only screen and (min-width: 991px) {
+  .body-item{
+    display: flex;
+  }
+}

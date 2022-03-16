@@ -1,0 +1,30 @@
+<div style="padding: 16px 0 ; height: calc(100vh - 61px);">
+  <div class="layout-list">
+    <div class="between-desktop">
+      <div class="flex g-8 full">
+        <mat-icon (click)="back()" svgIcon="icon-arrow-left"></mat-icon>
+        <h6>List Piutang</h6>
+      </div>
+      <div class="form-input-search g-4">
+        <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search piutang" type="text">
+        <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+        <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+      </div>
+    </div>
+    <div class="card-form mt-8 list-piutang">
+      <div style="margin-bottom: 16px;" *ngFor="let item of dataPiutang">
+        <div class="flex-between">
+          <div class="flex g-8">
+            <P class="body-1">{{item.customerName}}</P>
+            <p *ngIf="item.status" class="caption mt-4 tag-primary" style="line-height: 10px;height: fit-content;" >Jatuh Tempo</p>
+          </div>
+          <button (click)="onOpenDialogPayment(item.credit,item.idSales,item.idCustomer,item.status)" mat-button class="btn-primary">Bayar Sekarang</button>
+        </div>
+
+        <p class="body-2 mt-4">{{item.limitDate | date:'dd MMM YYYY'}}</p>
+        <p class="body-2 mt-4">Rp. {{item.credit.toLocaleString(['id'])}}</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

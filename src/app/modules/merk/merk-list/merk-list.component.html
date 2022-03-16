@@ -1,0 +1,56 @@
+<div>
+  <div >
+    <div class="head-merk hide-to-desktop">
+      <div class="flex-between">
+        <h6 >List Merk</h6>
+        <button  routerLink="/merk/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+           Merk</button>
+      </div>
+    </div>
+    <div class="flex-between card-search">
+      <h6  class="full hide-to-mobile">List Merk</h6>
+      <div class="form-input-search g-4">
+        <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search merk" type="text">
+        <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+        <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+      </div>
+      <div class="flex end full hide-to-mobile">
+        <button  routerLink="/merk/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+          Merk</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!dataService.skeleton" >
+    <div class="list-merk">
+      <div *ngFor="let item of dataMerk" class="card-merk-item">
+        <div class="flex" style="position: absolute;top: 0;right: 0;">
+          <div *ngIf="role === 'IT' || role==='ADMIN'" class="btn-primary-circle" >
+            <mat-icon  (click)="onDelete(item.kodeMerk)"  svgIcon="icon-delete"></mat-icon>
+          </div>
+        </div>
+        <div class="card-merk-img">
+          <img style="width: 100%;" src={{urlImage(item.path)}} alt="" onerror="this.src='/assets/image/no-image.svg'">
+        </div>
+        <div class="card-form card-merk-title flex-between">
+          <h6>{{item.name}}</h6>
+          <button *ngIf="role === 'IT' || role==='ADMIN'" (click)="toEdit(item.kodeMerk)" mat-button class="btn-primary-list" >edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="dataService.skeleton" style="overflow: hidden;">
+    <div class="list-merk">
+      <div *ngFor="let item of arrSkeleton" class="card-merk-item">
+        <div class="card-merk-img skeleton ">
+          <img style="height: 200px;" class="skeleton" />
+        </div>
+        <div class="card-form card-merk-title flex-between g-4">
+          <h6 class="skeleton skeleton-text full"></h6>
+          <button  mat-button class="skeleton" ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+::ng-deep .mat-dialog-container{
+  padding: 0;
+}
+
+@media only screen and (min-width: 991px) {
+
+  .dialog-supllier{
+    width: 300px;
+  }
+}

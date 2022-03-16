@@ -1,0 +1,22 @@
+
+
+@media only screen and (max-width: 991px) {
+  .card-transfer{
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-width: 991px) {
+  .card-transfer{
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    height: auto;
+  }
+}
+
+

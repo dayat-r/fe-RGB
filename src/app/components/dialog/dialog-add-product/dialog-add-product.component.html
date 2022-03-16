@@ -1,0 +1,108 @@
+<div class="dialog-stok">
+  <div class="card-form flex-between">
+    <p class="body-1">Add Stock</p>
+    <mat-icon [mat-dialog-close] class="pointer icon" svgIcon="icon-close"></mat-icon>
+  </div>
+  <hr>
+  <div class="input-dialog">
+    <div class="card-form">
+      <label class="caption">Stock Place</label>
+      <mat-select [(ngModel)]="data.location" class="form-input">
+        <div  *ngFor="let item of dataActual">
+          <mat-option value={{item.locCode}}>{{item.name}}</mat-option>
+        </div>
+      </mat-select>
+    </div>
+    <div class="card-form">
+      <label class="caption">Supplier</label>
+      <div style="height: 37px;" (click)="onOpenDialogSupplier()" class="form-input" type="text">
+        {{data.nameSupplier}}
+      </div>
+    </div>
+    <div class="card-form">
+      <label class="caption">Stock Qty</label>
+      <input placeholder="0" (input)="calculate()" [(ngModel)]="data.qty" class="form-input" type="number">
+    </div>
+    <div class="card-form">
+      <div class="flex-between">
+        <label class="caption">Price</label>
+        <p class="caption font-primary">{{limitPrice.toLocaleString(['ban'])}}</p>
+      </div>
+      <input placeholder="0" (input)="calculateModal()" [(ngModel)]="data.priceUnit" class="form-input" type="text">
+      <!-- <p *ngIf="error.price" class="caption font-primary"> Harga modal harus lebih kecil harga jual</p> -->
+    </div>
+    <!-- <div class="card-form">
+      <label class="caption">Discount</label>
+      <input placeholder="0" (input)="calculate()" [(ngModel)]="data.diskon" class="form-input" type="number">
+    </div> -->
+    <div class="card-form">
+      <label class="caption">Diskon</label>
+      <div class="flex-between align-center" style="gap: 10px;">
+        <input (input)="calculate()" [(ngModel)]="data.diskon" placeholder="0"  class="form-input" type="number">
+        <p *ngIf="data.typeDiskon === 'Percentage'" class="body-1 mt-8">%</p>
+        <mat-select (selectionChange)="matSelectChange()" [(ngModel)]="data.typeDiskon" class="form-input">
+          <mat-option value="Amount">Amout</mat-option>
+          <mat-option value="Percentage">Percentage</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="card-form">
+      <mat-checkbox (change)="calculate()" [(ngModel)]="data.ppnCheck">
+        <p class="body-2">PPN</p>
+      </mat-checkbox>
+      <div *ngIf="data.ppnCheck" class="mt-8 flex-between" style="gap: 20px;">
+        <div class="flex full align-center" style="gap: 8px;">
+          <input placeholder="0" [(ngModel)]="data.ppn" class="form-input" type="number" style="margin-top: 0;height: 28px;">
+          <p class="body-2">%</p>
+        </div>
+        <mat-radio-group (change)="calculate()" [(ngModel)]="data.ppnStatus"  class="body-2">
+          <mat-radio-button value="BEFORE">Sebelum Diskon</mat-radio-button>
+          <mat-radio-button value="AFTER">Sesudah Diskon</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="card-form">
+      <label class="caption">Pembayaran</label>
+      <div class="mt-8">
+
+        <mat-radio-group [(ngModel)]="data.paymentMethod" style="display: grid; gap: 5px;" class="body-2">
+          <mat-radio-button value="CASH">Cash</mat-radio-button>
+          <mat-radio-button value="CREDIT">Credit</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div *ngIf="data.paymentMethod === 'CREDIT'">
+      <div  class="card-form">
+        <label class="caption">Jumlah Pembayaran Awal</label>
+        <input (input)="calculate()" placeholder="0" [(ngModel)]="data.dp" class="form-input" type="text">
+      </div>
+      <div  class="card-form">
+        <label class="caption">Tanggal Pembayaran</label>
+        <div class="flex align-center">
+          <input (click)="picker.open()" [(ngModel)]="data.limitDate" class="form-input" type="text" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        </div>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+    </div>
+
+  </div>
+
+
+  <hr>
+  <div class="card-form ">
+    <div class="flex-between">
+      <p class="body-1">Total</p>
+      <p class="body-1" *ngIf="totalPrice">{{(totalPrice.toLocaleString(['ban','id'])) || 0}}</p>
+      <p class="body-1" *ngIf="!totalPrice">0</p>
+    </div>
+    <div *ngIf="data.paymentMethod === 'CREDIT'" class="flex-between mt-8">
+      <p class="body-1">Sisa Kredit</p>
+      <p class="body-1" *ngIf="data.credit">{{(data.credit.toLocaleString(['ban','id'])) || 0}}</p>
+      <p class="body-1" *ngIf="!data.credit">0</p>
+    </div>
+  </div>
+  <div class="card-form">
+    <button (click)="onRestock()" mat-button class="full btn-primary">Save</button>
+  </div>
+</div>

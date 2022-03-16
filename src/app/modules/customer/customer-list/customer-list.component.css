@@ -1,0 +1,35 @@
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background:rgba(196, 196, 196, 0.6);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5a6674;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 0px;
+}
+
+@media only screen and (max-width: 990px) {
+  .head-customer{
+    padding: 8px 16px;
+  }
+  .form-input-search{
+    margin: 8px 16px;
+  }
+
+}
+@media only screen and (min-width: 991px) {
+  .list-customer{
+    height: calc(100vh - 195px);
+    overflow: auto;
+  }
+  .card-search{
+    margin-top: 20px;
+  }
+  .card-body{
+    margin-top: 24px;
+  }
+}

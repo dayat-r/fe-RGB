@@ -1,0 +1,114 @@
+<div class="body-report">
+  <div class="mt-8">
+    <h6>Summary</h6>
+  </div>
+
+  <div class="layout-report">
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pemasukan</p>
+        <h6 class="mt-4">{{income | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pengeluaran</p>
+        <h6 class="mt-4">{{cost | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Piutang</p>
+        <h6  class="mt-4">{{piutang  | currency:'Rp.':'symbol':'3.0' }}</h6>
+
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Hutang</p>
+        <h6 class="mt-4">{{hutang | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+
+
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Kas</p>
+        <h6 class="mt-4">{{income - cost - purchase + sales - piutang | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Pembelian</p>
+        <h6 class="mt-4">{{sumPurchase}} X</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Pembelian</p>
+        <h6 class="mt-4">{{purchase | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Banyak Penjualan</p>
+        <h6 class="mt-4">{{sumSales }} X</h6>
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Penjualan</p>
+        <h6  class="mt-4">{{sales  | currency:'Rp.':'symbol':'3.0' }}</h6>
+
+      </div>
+    </div>
+    <div class="card-asset card-form flex align-center">
+      <div>
+        <p class="caption">Persedian Barang IDR</p>
+        <h6 class="mt-4">{{asetIdr | currency:'Rp.':'symbol':'3.0'}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="mt-8" style="margin-top: 40px;">
+    <h6>Report</h6>
+  </div>
+  <div class="layout-report">
+    <div routerLink="/report/item-sales-report" class="card-report">
+      <img class="img-report" src="/assets/image/item.svg" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Produk</p>
+      </div>
+    </div>
+    <div class="card-report" routerLink="/report/sales-report">
+      <img class="img-report" src="/assets/image/sales.png" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Penjualan</p>
+      </div>
+    </div>
+    <div class="card-report">
+      <img class="img-report" routerLink="/report/purchase-report" src="/assets/image/purchase.svg" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Pembelian</p>
+      </div>
+    </div>
+    <div routerLink="/report/ar-report" class="card-report">
+      <img class="img-report" src="/assets/image/hutang.svg" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Hutang</p>
+      </div>
+    </div>
+    <div routerLink="/report/dept-report"  class="card-report">
+      <img class="img-report" src="/assets/image/piutang.svg" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Piutang</p>
+      </div>
+    </div>
+    <div routerLink="/report/is-report" class="card-report">
+      <img class="img-report" src="/assets/image/laba.svg" alt="">
+      <div class="card-form flex-around">
+        <p class="body-2">Laporan Laba Rugi</p>
+      </div>
+    </div>
+  </div>
+</div>

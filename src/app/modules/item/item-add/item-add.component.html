@@ -1,0 +1,72 @@
+<div>
+    <div class="card-form flex g-8">
+      <mat-icon (click)="back()" class="pointer" svgIcon="icon-arrow-left" ></mat-icon>
+      <h6>Product Add</h6>
+    </div>
+    <hr>
+    <div class="body-item">
+      <div class="full">
+          <div class="card-form">
+              <label class="caption">Barcode</label>
+              <div class="flex">
+                <input [(ngModel)]="data.barcode" class="form-input" type="text">
+                <button (click)="generateBarcode()" mat-button class="btn-primary " style="margin-top: 8px;">Generate </button>
+              </div>
+          </div>
+          <div class="card-form">
+            <label class="caption">Description</label>
+            <input [(ngModel)]="data.description" class="form-input" type="text">
+          </div>
+
+          <div class="card-form">
+            <label class="caption">Merek Product</label>
+            <input [(ngModel)]="data.merk" class="form-input" type="text">
+          </div>
+          <div class="card-form">
+            <label class="caption">Harga Jual</label>
+            <input [(ngModel)]="data.price" class="form-input" type="text">
+          </div>
+
+      </div>
+      <div class="full">
+        <!-- <div class="card-form">
+          <label class="caption">Supplier</label>
+          <div style="height: 37px;" (click)="onOpenDialogSupplier()" class="form-input" type="text">
+            {{data.nameSupplier}}
+          </div>
+        </div> -->
+        <div class="card-form">
+          <label class="caption">Merek Mobil</label>
+            <div style="height: 37px;" (click)="onOpenDialogMerk()" class="form-input" type="text">
+              {{data.merkMobil}}
+            </div>
+        </div>
+        <div class="card-form">
+            <label class="caption">Tipe Mobil</label>
+            <input [(ngModel)]="data.tipeMobil" class="form-input" type="text">
+        </div>
+        <div class="card-form">
+          <label class="caption">Catatan</label>
+          <input [(ngModel)]="data.description2" class="form-input" type="text">
+        </div>
+      </div>
+      <div class="flex-around">
+        <div class="card-form" >
+          <label class="caption">Foto Product</label>
+          <div class="full mb-10">
+            <img (click)="openDialogCrop()" src={{imagePre}} alt="" class="card-img-input mt-8" onerror="this.src='/assets/image/no-image.svg'">
+          </div>
+          <button (click)="openDialogCrop()" mat-button class="btn-secondary" >Choose File</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="end card-form">
+        <div>
+            <button (click)="back();" mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+            <button (click)="onSaveProduct()" mat-button class="btn-primary">Save</button>
+        </div>
+    </div>
+
+</div>

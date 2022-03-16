@@ -1,0 +1,95 @@
+<div>
+	<div >
+    <div class="head-item hide-to-desktop">
+      <div class="flex-between">
+        <h6 >List Product</h6>
+        <button  routerLink="/item/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+          Product
+        </button>
+      </div>
+    </div>
+    <div class="flex-between card-search">
+      <h6  class="full hide-to-mobile">List Product</h6>
+      <div class="form-input-search g-4">
+        <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search product" type="text">
+        <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+        <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+      </div>
+      <div class="flex end full hide-to-mobile">
+        <button  routerLink="/item/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+          Product
+        </button>
+      </div>
+    </div>
+  </div>
+	<div class="flex">
+		<div class="card-filter hide-to-mobile">
+			<div class="card-form flex-between">
+				<h6>Filter</h6>
+				<p (click)="onResetFilter()" class="body-1 font-primary pointer">Reset</p>
+			</div>
+			<hr>
+			<div class="card-form">
+				<p class="body-1">Merek Mobil</p>
+			</div>
+			<div class="card-form" style="height: calc(100vh - 270px);overflow: auto;">
+				<div *ngFor="let item of dataMerk">
+					<mat-checkbox [checked]="checkTrue(item.name)" (change)="onFilter($event.checked,item.name)" class="body-2" style="margin-bottom: 16px;">{{item.name}}</mat-checkbox>
+				</div>
+			</div>
+		</div>
+		<div class="full list-body" >
+      <!-- <div class="hide-to-desktop flex end mb-10">
+        <p class="body-2 font-primary pointer">Filter</p>
+      </div> -->
+			<div class="list-order">
+        <cdk-virtual-scroll-viewport itemSize="120" style="width: 100%; height: 100%;">
+          <div class="card-list-item flex" *cdkVirtualFor="let item of dataSource" >
+            <div class="card-img-item">
+              <img class="img-item" src={{getImageItem(item.path)}} alt=""
+                onerror="this.src='/assets/image/no-image.svg'">
+            </div>
+            <div class="card-form body-item full" >
+              <div class="cursor title-item" (click)="toDetail(item.barcode)">
+                <p class="body-1 title-3-line">{{item.description}} {{item.merkMobil}} {{item.tipeMobil}} </p>
+              </div>
+              <div class="body-price-qty">
+                <p class="body-2 font-primary">{{item.price |currency:'Rp.':"symbol":"3.0"}}</p>
+                <hr class="hide-to-mobile">
+                <p class="body-2">Qty : {{item.total}}</p>
+                <p class="body-2 hide-to-mobile"> Merk : {{item.merk}}</p>
+              </div>
+            </div>
+          </div>
+      </cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+		<!-- <div class="full list-body" *ngIf="dataService.skeleton" style="overflow: hidden;">
+      <div class="hide-to-desktop flex end mb-10">
+        <p class="body-2 font-primary pointer">Filter</p>
+      </div>
+			<div >
+        <div class="card-list-item flex"  *ngFor="let item of skeletonArr">
+          <div class="card-img-item ">
+            <div class="img-item skeleton " style="height:100%;" ></div>
+          </div>
+          <div class="card-form body-item full" >
+            <div style="height: 48px;">
+              <p class="body-1 skeleton skeleton-text"> </p>
+            </div>
+            <div class="body-price-qty">
+              <p class="body-2 font-primary skeleton skeleton-text"></p>
+              <hr class="hide-to-mobile">
+              <p class="body-2 skeleton skeleton-text"></p>
+              <p class="body-2 hide-to-mobile skeleton skeleton-text mt-4"> </p>
+              <p class="body-2 hide-to-mobile skeleton skeleton-text mt-4"> </p>
+            </div>
+          </div>
+        </div>
+			</div>
+		</div> -->
+	</div>
+
+</div>

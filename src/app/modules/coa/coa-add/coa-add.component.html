@@ -1,0 +1,22 @@
+<div>
+  <div class="card-form flex g-8">
+    <mat-icon class="pointer" (click)="back()" svgIcon="icon-arrow-left" ></mat-icon>
+      <h6>Tambah Coa</h6>
+  </div>
+  <hr>
+  <div class="card-form">
+      <label class="caption">No Coa</label>
+      <input  [(ngModel)]="data.noCoa" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Description</label>
+      <input [(ngModel)]="data.description" class="form-input" type="text">
+  </div>
+  <div class="end card-form">
+      <div>
+          <button mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+          <button (click)="onSaveCoa()" mat-button  [disabled]="dataService.loading"  mat-button [class]="dataService.loading?'btn-disable':'btn-primary'">Save</button>
+      </div>
+  </div>
+
+</div>

@@ -1,0 +1,44 @@
+<div>
+  <div class="head">
+    <div class="head-search hide-to-desktop">
+      <div class="flex-between">
+        <h6 >List Pengeluaran</h6>
+        <button  routerLink="/cost/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+          Pengeluaran</button>
+      </div>
+    </div>
+    <div class="flex-between card-search">
+      <h6  class="full hide-to-mobile">List Pengeluaran</h6>
+      <div class="form-input-search g-4">
+        <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search pengeluaran" type="text">
+        <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+        <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+      </div>
+      <div class="flex end full hide-to-mobile">
+        <button  routerLink="/cost/add" mat-button class="btn-primary">
+          <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+          Pengeluaran</button>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let item of dataCost">
+    <div class="card-list-income flex ">
+      <div class="card-date card-form hide-to-mobile">
+        <p class="body-1">{{item.date | date:'dd MMMM yyyy'}}</p>
+      </div>
+      <div class="card-content card-form flex align-center">
+        <div class="card-body">
+          <p class="body-1">{{item.name}}</p>
+          <p class="body-1 font-primary hide-to-mobile">Rp. {{item.amount.toLocaleString(['ban','id'])}}</p>
+          <p class="caption hide-to-mobile" style="max-width: 400px;">{{item.description}}</p>
+        </div>
+        <div class="flex">
+          <button class="btn-secondary" (click)="toEdit(item.id)" mat-button style="margin-right: 10px;">edit</button>
+          <button class="btn-primary" (click)="onDelete(item.id)" mat-button>Delete</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

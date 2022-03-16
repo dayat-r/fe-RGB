@@ -1,0 +1,32 @@
+.layout{
+  padding: 8px 16px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+
+.card-non{
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid grey;
+  width: 100px;
+  height: 100px;
+}
+.card-active{
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid grey;
+  background-color: aquamarine;
+  width: 100px;
+  height: 100px;
+}
+
+
+p{
+  margin: 0;
+}
+
+.center{
+  text-align: center;
+}

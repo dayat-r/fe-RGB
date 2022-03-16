@@ -1,0 +1,26 @@
+<div >
+  <div >
+    <div class="card-form flex-between">
+      <h6>Merk Add</h6>
+      <mat-icon [mat-dialog-close] svgIcon="icon-close" class="icon pointer" ></mat-icon>
+    </div>
+    <hr>
+    <div class="card-form">
+        <label class="caption">Name</label>
+        <input [(ngModel)]="data.name" class="form-input" type="text">
+    </div>
+    <div class="card-form" style="display: grid;">
+        <label class="caption">Gambar</label>
+        <img (click)="openDialogCrop()" src={{imagePre}} alt="" class="card-img-input mt-8" onerror="this.src='/assets/image/no-image.svg'">
+        <p class="caption font-primary mt-8">upload gambar</p>
+    </div>
+    <div class="end card-form">
+        <div>
+            <button [mat-dialog-close] mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+            <button (click)="onSaveMerk()" mat-button class="btn-primary">Save</button>
+        </div>
+    </div>
+
+  </div>
+</div>
+

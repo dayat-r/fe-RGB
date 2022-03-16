@@ -1,0 +1,35 @@
+<div class="dialog-supplier">
+  <div class="card-form flex-between" >
+    <h6>List Supplier</h6>
+    <mat-icon [mat-dialog-close] class="icon pointer" svgIcon="icon-close" ></mat-icon>
+  </div>
+  <div class="card-form" style="padding-top: 0;">
+    <div class="form-input-search g-4">
+      <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search supplier" type="text">
+      <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+      <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+    </div>
+  </div>
+  <div class="list-supplier" *ngIf="!dataService.skeleton">
+    <div *ngFor="let item of dataSupplier" >
+      <div (click)="onSelect(item.idSupplier , item.name)" class="list pointer" >
+        <p  class="body-2">{{item.name}}</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="list-supplier" *ngIf="dataService.skeleton" style="overflow: hidden;">
+    <div *ngFor="let item of arrSkeleton" >
+      <div class="list pointer" >
+        <p  class="body-2 skeleton skeleton-text"></p>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="card-form">
+    <button (click)="dialogAddSupplier()" mat-button class="btn-primary full">
+      <mat-icon svgIcon="icon-plus" style="width: 18px;"></mat-icon>
+        Supplier Baru
+    </button>
+  </div>
+</div>

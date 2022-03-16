@@ -1,0 +1,26 @@
+<div class="dialog-supplier">
+  <div class="card-form flex-between">
+      <h6>Supplier Add</h6>
+      <mat-icon [mat-dialog-close] svgIcon="icon-close" class="icon pointer" ></mat-icon>
+  </div>
+  <hr>
+  <div class="card-form">
+      <label class="caption">Name</label>
+      <input [(ngModel)]="data.name" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Address</label>
+      <input [(ngModel)]="data.address" class="form-input" type="text">
+  </div>
+  <div class="card-form">
+      <label class="caption">Telp</label>
+      <input [(ngModel)]="data.telp" class="form-input" type="text">
+  </div>
+  <div class="end card-form">
+      <div>
+          <button mat-button class="btn-secondary" style="margin-right: 12px;">Cancel</button>
+          <button (click)="onSaveSupplier()" mat-button class="btn-primary">Save</button>
+      </div>
+  </div>
+
+</div>

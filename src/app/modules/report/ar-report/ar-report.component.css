@@ -1,0 +1,36 @@
+
+.table tr td{
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.list-sales{
+  height: calc(100vh - 220px);
+  width: 100%;
+}
+
+@media only screen and (max-width: 990px) {
+  .p-mobile{
+    padding: 0 16px;
+  }
+  .mt-mobile{
+    padding-top: 8px;
+  }
+  .table {
+    width: 95%;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+}
+
+@media only screen and (min-width: 991px) {
+  .table {
+    width: 100%;
+    box-shadow: 1px 1px 5px#666666;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+}
+
+
+
+

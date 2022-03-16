@@ -1,0 +1,27 @@
+<div style="padding: 16px 0 ; height: calc(100vh - 61px);">
+  <div class="layout-list">
+    <div class="flex-between">
+      <div class="flex g-8 full">
+        <mat-icon (click)="back()" svgIcon="icon-arrow-left"></mat-icon>
+        <h6>Alert Center</h6>
+      </div>
+    </div>
+    <div class="card-form mt-8 list-alert">
+      <div style="margin-bottom: 8px;" *ngFor="let item of dataAlert">
+        <div (click)="toNext(item.type)" [style]="item.status?'background-color: bisque;':''"  style="padding: 8px 16px;border-radius: 8px;">
+          <div class="flex-between">
+            <div class="flex g-8">
+              <P class="body-1">{{item.date | date:'dd MMM YYYY'}}</P>
+              <p class="caption mt-4 tag-primary" style="line-height: 10px;height: fit-content;" >{{item.type}}</p>
+            </div>
+            <!-- <button mat-button class="btn-primary">Bayar Sekarang</button> -->
+          </div>
+
+          <p class="body-2 mt-4">{{item.description }}</p>
+          <!-- <p class="body-2 mt-4">Rp. {{item.credit.toLocaleString(['id'])}}</p> -->
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

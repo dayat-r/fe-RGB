@@ -1,0 +1,45 @@
+<div class="dialog-search-location">
+	<div class="dialog-body">
+		<mat-toolbar style="background: #ffff;" class="flex-between align-center">
+			<span class="text-toolbar">Upload Foto</span>
+
+			<button *ngIf="uploadNow" (click)="uploadImage()" mat-icon-button class="space desktop"
+				style="margin-left: auto;">
+				<mat-icon style="color:rgba(0, 0, 0, 0.54);" class="icon-back">done</mat-icon>
+			</button>
+		</mat-toolbar>
+		<input #upload hidden id="upload" class="choose-file subtitle-1" name="image" (change)="fileChangeEvent($event)"
+			accept="image/*" type="file" autocomplete="off" maxlength="100" placeholder="Upload Image">
+		<div class="image-crop-area flex-around align-center">
+			<ng-container>
+				<image-cropper #imageCropper [imageBase64]="imageBase64" [maintainAspectRatio]="true"
+					[aspectRatio]="cropSize" format="png" [resizeToWidth]="resizeWidth" [onlyScaleDown]="true"
+					[cropperMinWidth]="128" [autoCrop]="false" (imageCropped)="imageCropped($event)"></image-cropper>
+			</ng-container>
+		</div>
+		<div class="flex-around align-center transform">
+			<button *ngIf="(!readyToUpload) || (!readyToUpload && !uploadNow) || (readyToUpload && uploadNow)"
+				mat-icon-button class="space desktop">
+				<mat-icon (click)="imageCropper.rotateLeft()" style="color:rgba(0, 0, 0, 0.54);" class="icon-back">
+					rotate_left</mat-icon>
+			</button>
+			<button *ngIf="(!readyToUpload) || (!readyToUpload && !uploadNow) || (readyToUpload && uploadNow)"
+				mat-icon-button class="space desktop">
+				<mat-icon (click)="cropImage(); changeReadyUpload();" style="color:rgba(0, 0, 0, 0.54);"
+					class="icon-back">crop</mat-icon>
+			</button>
+			<button *ngIf="(!readyToUpload) || (!readyToUpload && !uploadNow) || (readyToUpload && uploadNow)"
+				mat-icon-button class="space desktop">
+				<mat-icon (click)="imageCropper.rotateRight()" style="color:rgba(0, 0, 0, 0.54);" class="icon-back">
+					rotate_right</mat-icon>
+			</button>
+		</div>
+		<div class="button-proses flex-around align-center" style="padding: 16px; margin-bottom: 0;">
+			<div *ngIf="(readyToUpload && !uploadNow) || (readyToUpload)" class="submit-profil" style="width: 100%;">
+				<button (click)="cropImage(); changeUpload();" mat-raised-button
+					[ngClass]="{'btn-disable':btnDisable === true,'btn-primary':btnDisable === false}"
+					[disabled]="btnDisable" style="width: 100%;">Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>

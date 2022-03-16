@@ -1,0 +1,58 @@
+<div>
+  <div class="head">
+    <div class="head-search hide-to-desktop">
+      <div class="flex-between">
+        <h6 >List Penjualan</h6>
+        <button  routerLink="/income/add" mat-button class="btn-primary">Add Penjualan</button>
+      </div>
+    </div>
+    <div class="flex-between card-search">
+      <h6  class="full hide-to-mobile">List Penjualan</h6>
+      <div class="form-input-search g-4">
+        <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search sales" type="text">
+        <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+        <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+      </div>
+      <div class="flex end full hide-to-mobile">
+        <button  routerLink="/sales/new-order" mat-button class="btn-primary">New Order</button>
+      </div>
+    </div>
+  </div>
+  <div class="flex">
+		<div class="card-filter hide-to-mobile">
+			<div class="card-form flex-between">
+				<h6>Filter</h6>
+				<p  class="body-1 font-primary pointer">Reset</p>
+			</div>
+			<hr>
+			<div class="card-form">
+				<p class="body-2">Status Pembayaran</p>
+			</div>
+			<div class="card-form" >
+				<div style="display: grid;">
+					<mat-checkbox (change)="onFilter($event.checked,'CASH')" class="body-2" style="margin-bottom: 16px;">Cash</mat-checkbox>
+					<mat-checkbox (change)="onFilter($event.checked,'CREDIT')" class="body-2" style="margin-bottom: 16px;">Credit</mat-checkbox>
+					<mat-checkbox (change)="onFilter($event.checked,'LUNAS')" class="body-2" style="margin-bottom: 16px;">Lunas</mat-checkbox>
+				</div>
+			</div>
+		</div>
+		<div class=" full list-body">
+			<div>
+				<div class="card-list-item flex "  *ngFor="let item of dataSales">
+					<div (click)="toDetail(item.idSales)" class="card-form body-item full ">
+						<div class="flex-between" >
+              <p class="body-2">{{item.idSales}} </p>
+              <p class="body-2">{{item.paymentMethod}}</p>
+
+						</div>
+            <div class="flex-between">
+              <p class="body-1">{{item.customerName}} </p>
+
+              <p class="body-1 font-primary">{{math(item.total) |currency:'Rp.':"symbol":"3.0"}}</p>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

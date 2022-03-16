@@ -1,0 +1,65 @@
+<div>
+	<div class="head-customer hide-to-desktop">
+    <div class="flex-between">
+      <h6 >List Customer</h6>
+      <button  routerLink="/customer/add" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+         Customer</button>
+    </div>
+	</div>
+	<div class="flex-between card-search" >
+		<h6  class="full hide-to-mobile">List Customer</h6>
+    <div class="form-input-search g-4">
+      <input style="width: 100%;" (keyup.enter)="search()" [(ngModel)]="cari" class="search" placeholder="Search customer" type="text">
+      <mat-icon (click)="resetSearch()" *ngIf="cari" class="icon pointer" svgIcon="icon-close-fill" ></mat-icon>
+      <mat-icon (click)="search()" class="icon pointer" svgIcon="icon-search" ></mat-icon>
+    </div>
+    <div class="flex end full hide-to-mobile">
+      <button  routerLink="/customer/add" mat-button class="btn-secondary">
+        <mat-icon svgIcon="icon-plus" class="icon"></mat-icon>
+         Customer</button>
+
+    </div>
+	</div>
+
+  <div *ngIf="dataCustomer?.length==0" class="flex-around align-center" style="height: calc(100vh - 200px);">
+    <div>
+      <p class="caption">Belum ada customer</p>
+    </div>
+  </div>
+  <div *ngIf="dataCustomer?.length>0" class="card-body">
+    <div  class="flex-between card-form hide-to-mobile" style="border-bottom: 1px solid #e0e0e0;background-color: #e0e0e0;border-radius: 0 0 16px 16px;">
+      <div style="display: grid;grid-template-columns: repeat(4,1fr);width: 90%;">
+        <p class="body-1">Name</p>
+        <p class="body-1">Address</p>
+        <p class="body-1">Telp</p>
+        <p class="body-1">Kota</p>
+      </div>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="list-customer ">
+      <div *ngFor="let item of dataCustomer" class="flex-between card-form hide-to-mobile" style="border-bottom: 1px solid #e0e0e0;">
+        <div style="display: grid;grid-template-columns: repeat(4,1fr);width: 90%;">
+          <p class="body-1">{{item.name}}</p>
+          <p class="body-1">{{item.address}}</p>
+          <p class="body-1">{{item.telp}}</p>
+          <p class="body-1">{{item.deptCode}}</p>
+        </div>
+        <div class="flex">
+          <button  (click)="toEdit(item.idCustomer)" mat-button class="btn-secondary-list" style="margin-right: 10px;">edit</button>
+          <button *ngIf="role === 'IT' || role==='ADMIN'" mat-button class="btn-primary-list" (click)="onDelete(item.idCustomer)">Delete</button>
+        </div>
+      </div>
+      <div *ngFor="let item of dataCustomer" class="flex-between card-form hide-to-desktop" >
+          <p class="body-1">{{item.name}}</p>
+        <div class="flex">
+          <button  (click)="toEdit(item.idCustomer)" mat-button class="btn-secondary-list" style="margin-right: 10px;">edit</button>
+          <button *ngIf="role === 'IT' || role==='ADMIN'" mat-button class="btn-primary-list" (click)="onDelete(item.idCustomer)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

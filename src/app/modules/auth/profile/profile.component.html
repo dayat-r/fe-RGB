@@ -1,0 +1,41 @@
+<div style="padding: 16px 0 ; height: calc(100vh - 61px);">
+  <div class="layout-list">
+    <div class="card-form flex g-8">
+      <mat-icon class="pointer" (click)="back()" svgIcon="icon-arrow-left" ></mat-icon>
+        <h6>Profile</h6>
+    </div>
+    <div>
+      <div class="card-form">
+        <label class="caption">Email</label>
+        <input disabled [(ngModel)]="data.email" class="form-input" type="text">
+      </div>
+      <div class="card-form">
+        <label class="caption">Name</label>
+        <input [(ngModel)]="data.name" class="form-input" type="text">
+      </div>
+      <div class="card-form">
+        <mat-checkbox [(ngModel)]="changePassword">
+          <p class="body-2">Ganti Password</p>
+        </mat-checkbox>
+      </div>
+      <div *ngIf="changePassword">
+        <div class="card-form">
+          <label class="caption">Password Lama</label>
+          <input [(ngModel)]="oldPassword" class="form-input" type="password">
+        </div>
+        <div class="card-form">
+          <label class="caption">Password Baru</label>
+          <input [(ngModel)]="password" class="form-input" type="password">
+        </div>
+        <div class="card-form">
+          <label class="caption">Konfirmasi Password Baru</label>
+          <input [(ngModel)]="passwordConfirm" class="form-input" type="password">
+        </div>
+      </div>
+      <div class="card-form flex end">
+        <button (click)="updateProfile()" mat-button class="btn-primary">Simpan</button>
+      </div>
+    </div>
+
+  </div>
+</div>

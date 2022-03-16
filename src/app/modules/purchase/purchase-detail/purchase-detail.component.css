@@ -1,0 +1,18 @@
+.layout-list{
+  border-radius: 8px;
+  padding: 16px 24px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  height: 100%;
+}
+
+.img-item{
+  width: 200px;
+  padding: 8px 16px;
+}
+
+.body-detail{
+  padding: 8px 16px;
+  height: calc(100vh - 145px);
+  overflow: auto;
+}
